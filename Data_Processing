@@ -1,0 +1,25 @@
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 5/24/2023
+DESCRIPTION: This statement returns total count of records by count of ride_id, the primary key of the dataset.
+*/
+SELECT 
+COUNT(ride_id) AS ride_count
+FROM 
+`bike_share_rides.april_2022`;
+
+ride_count
+371249
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 5/24/2023
+DESCRIPTION: This statement returns total distinct records by count of ride_id, the primary key of the dataset.
+*/
+SELECT 
+COUNT(DISTINCT ride_id) AS distinct_rides
+FROM 
+`bike_share_rides.april_2022`;
+
+distinct_rides
+371249
