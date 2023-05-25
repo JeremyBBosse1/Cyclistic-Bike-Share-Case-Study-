@@ -60,10 +60,10 @@ GROUP BY
 LENGTH(ride_id);
 
 ride_id_length	ride_id_count
-16              371000
-11	            225
-9	              3
-10	            21
+16 371000
+11 225
+9 3
+10 21
 
 /* 
 CREATED BY: Jeremy Bosse
