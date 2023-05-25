@@ -100,7 +100,7 @@ small_ride_ids
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 5/24/2023
-DESCRIPTION: BigQuery did not allow me to upload the data tables due to en error in ride_length values. The ride_length values with #'s were automatically deleted at time of upload in BigQuery.
+DESCRIPTION: BigQuery did not allow me to upload the data tables due to an error in ride_length values. The ride_length values with #'s were automatically deleted at time of upload in BigQuery.
 The statement below is from a prior attempt at using SQLite Studio to clean the data tables from the same datasets. SQLite studio was not used because the data analysis query results did not coincide with results produced in in Excel and BigQuery. 
 */
 
