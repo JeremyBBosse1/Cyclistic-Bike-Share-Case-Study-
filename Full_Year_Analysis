@@ -1,0 +1,67 @@
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/9/2023
+DESCRIPTION: This statement creates a Full Year table with data from April 2022 through March of 2023. This statement combines fields from all tables using a UNION ALL statement.
+*/
+
+
+CREATE TABLE bike_share_rides.full_year AS
+SELECT
+*
+FROM
+`bike_share_rides.apr_22`
+UNION ALL
+SELECT
+*
+FROM
+`bike_share_rides.may_22`
+UNION ALL
+SELECT
+*
+FROM
+`bike_share_rides.jun_22`
+UNION ALL
+SELECT
+*
+FROM
+`bike_share_rides.jul_22`
+UNION ALL
+SELECT
+*
+FROM
+`bike_share_rides.aug_22`
+UNION ALL
+SELECT
+*
+FROM
+`bike_share_rides.sep_22`
+UNION ALL
+SELECT
+*
+FROM
+`bike_share_rides.oct_22`
+UNION ALL
+SELECT
+*
+FROM
+`bike_share_rides.nov_22`
+UNION ALL
+SELECT
+*
+FROM
+`bike_share_rides.dec_22`
+UNION ALL
+SELECT
+*
+FROM
+`bike_share_rides.jan_23`
+UNION ALL
+SELECT
+*
+FROM
+`bike_share_rides.feb_23`
+UNION ALL
+SELECT
+*
+FROM
+`bike_share_rides.mar_23`
