@@ -1,7 +1,7 @@
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/9/2023
-DESCRIPTION: This statement creates a seasonality table with data from April and May of 2022. The query combines all fields using a UNION ALL clause.
+DESCRIPTION: This statement creates a seasonality table with data from April and May of 2022. The query combines fields from all tables using a UNION ALL clause.
 */
 
 
