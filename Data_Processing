@@ -100,15 +100,9 @@ small_ride_ids
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 5/24/2023
-DESCRIPTION: BigQuery did not allow me to upload the data tables due to an error in ride_length values. The ride_length values with #'s were automatically deleted at time of upload in BigQuery.
-The statement below is from a prior attempt at using SQLite Studio to clean the data tables from the same datasets. SQLite studio was not used because the data analysis query results did not coincide with results produced in in Excel and BigQuery. 
-*/
-
-/* 
-CREATED BY: Jeremy Bosse
-CREATED ON: 5/10/2023
-DESCRIPTION: This statement returns records where ride_length has #'s instead of time values. 
-Each table was queried for similar ride_length results.
+DESCRIPTION: 
+The statement below is from a prior attempt at using SQLite Studio to clean the data tables from the same datasets.  
+This statement returns records where ride_length has #'s instead of time values. 
 */
 
 SELECT
@@ -133,7 +127,7 @@ D1FF403E09EC995E	9/18/2022 19:06	9/18/2022 19:06	###############################
 
 /* 
 CREATED BY: Jeremy Bosse
-CREATED ON: 5/10/2023
+CREATED ON: 5/24/2023
 DESCRIPTION: This statement deletes records where ride_length has #'s instead of time values. 
 Logically "end_time" should be greater than "start_time" to calculate "ride_length". 
 The "#"'s indicate inconsistent and unreliable data and was eliminated from each table.
