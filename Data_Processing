@@ -101,7 +101,7 @@ small_ride_ids
 CREATED BY: Jeremy Bosse
 CREATED ON: 5/24/2023
 DESCRIPTION: 
-The statement below is from a prior attempt at using SQLite Studio to clean the data tables from the same datasets.  
+The statement below is from a prior attempt at using SQLite Studio to clean the data tables from the same datasets (Naming conventions are different for this reason).  
 This statement returns records where ride_length has #'s instead of time values. 
 */
 
@@ -128,7 +128,9 @@ D1FF403E09EC995E	9/18/2022 19:06	9/18/2022 19:06	###############################
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 5/24/2023
-DESCRIPTION: This statement deletes records where ride_length has #'s instead of time values. 
+DESCRIPTION:
+The statement below is from a prior attempt at using SQLite Studio to clean the data tables from the same datasets (Naming conventions are different for this reason).
+This statement deletes records where ride_length has #'s instead of time values. 
 Logically "end_time" should be greater than "start_time" to calculate "ride_length". 
 The "#"'s indicate inconsistent and unreliable data and was eliminated from each table.
 */
