@@ -143,3 +143,64 @@ DELETE
 FROM 
 september_rides_2022
 WHERE ride_length LIKE '%#';
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/8/2023
+DESCRIPTION: This statement converts the data type of the ride_length column from TIME to STRING. Repeated for each table in the dataset.
+*/
+
+CREATE TABLE bike_share_rides.april_22 AS
+SELECT 
+ride_id,
+rideable_type,
+started_at,
+ended_at,
+start_station_name,
+start_station_id,
+end_station_name,
+end_station_id,
+start_lat,
+start_lng,
+end_lat,
+end_lng,
+member_casual,
+CAST(ride_length AS STRING) AS ride_length,
+month,
+day_of_week,
+year
+FROM
+`bike_share_rides.april_2022`;
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/8/2023
+DESCRIPTION: This statement converts the data type of the ride_length column from STRING to INTEGER. Repeated for each table in the dataset.
+*/
+
+
+CREATE TABLE bike_share_rides.apr_22 AS
+SELECT 
+ride_id,
+rideable_type,
+started_at,
+ended_at,
+start_station_name,
+start_station_id,
+end_station_name,
+end_station_id,
+start_lat,
+start_lng,
+end_lat,
+end_lng,
+member_casual,
+CAST(ride_length AS INTERVAL) AS ride_length,
+month,
+day_of_week,
+year
+FROM
+`bike_share_rides.april_22`;
+
+
+
