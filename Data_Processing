@@ -138,7 +138,8 @@ The "#"'s indicate inconsistent and unreliable data and was eliminated from each
 DELETE
 FROM 
 september_rides_2022
-WHERE ride_length LIKE '%#';
+WHERE 
+ride_length LIKE '%#';
 
 
 /* 
@@ -199,4 +200,20 @@ FROM
 `bike_share_rides.april_22`;
 
 
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/9/2023
+DESCRIPTION: This statement deletes the original tables from the dataset. Repeated for each table in the dataset.
+*/
 
+
+DROP TABLE bike_share_rides.april_2022;
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/9/2023
+DESCRIPTION: This statement deletes the modified original table from the dataset where the 'ride_length' data type is a STRING. Repeated for each table in the dataset.
+*/
+
+DROP TABLE bike_share_rides.april_22;
