@@ -65,3 +65,37 @@ SELECT
 *
 FROM
 `bike_share_rides.mar_23`
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/19/2023
+DESCRIPTION: This statement creates a Full Year table with average ride lengths from April 2022 through March 2023 using an aggregate function, a GROUP BY clause, and an ORDER BY clause.
+*/
+
+
+SELECT
+month,
+year,
+AVG(ride_length) AS avg_ride_length
+FROM
+`bike_share_rides.full_year`
+GROUP BY 
+month,
+year
+ORDER BY
+year ASC,
+month ASC;
+
+month	year	avg_ride_length
+4	2022	0-0 0 0:15:33.146613189
+5	2022	0-0 0 0:18:43.236327235
+6	2022	0-0 0 0:18:35.127658633
+7	2022	0-0 0 0:18:25.736440340
+8	2022	0-0 0 0:17:11.245522109
+9	2022	0-0 0 0:15:59.839666063
+10	2022	0-0 0 0:14:19.503254988
+11	2022	0-0 0 0:12:25.036387972
+12	2022	0-0 0 0:11:15.107427697
+1	2023	0-0 0 0:10:57.467133646
+2	2023	0-0 0 0:11:51.707394299
+3	2023	0-0 0 0:11:35.957425834
