@@ -106,7 +106,7 @@ month	year	avg_ride_length
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/21/2023
-DESCRIPTION: This statement creates a Full Year view of average ride lengths by membership type from April 2022 through March of 2023 using an agregate function, a GROUP BY clause and an ORDER BY clause.
+DESCRIPTION: This statement creates a Full Year view of average ride lengths by membership type, from April 2022 through March of 2023 using an agregate function, a GROUP BY clause and an ORDER BY clause.
 */
 
 
@@ -155,8 +155,8 @@ casual	3	2023	0-0 0 0:16:1.089001784
 
 /* 
 CREATED BY: Jeremy Bosse
-CREATED ON: 6/19/2023
-DESCRIPTION: This statement creates a Full Year view of average ride lengths by membership type "casual" from April 2022 through March of 2023 using an agregate function, a WHERE clause, a GROUP BY clause and an ORDER BY clause.
+CREATED ON: 6/21/2023
+DESCRIPTION: This statement creates a Full Year view of average ride lengths by membership type "casual", from April 2022 through March of 2023 using an agregate function, a WHERE clause, a GROUP BY clause and an ORDER BY clause.
 */
 
 
@@ -192,10 +192,11 @@ casual	1	2023	0-0 0 0:14:16.594056188
 casual	2	2023	0-0 0 0:16:37.874209596
 casual	3	2023	0-0 0 0:16:1.089001784
 
+
 /* 
 CREATED BY: Jeremy Bosse
-CREATED ON: 6/19/2023
-DESCRIPTION: This statement creates a Full Year view of average ride lengths by membership type 'member' from April 2022 through March of 2023 using an agregate function, a GROUP BY clause and an ORDER BY clause.
+CREATED ON: 6/21/2023
+DESCRIPTION: This statement creates a Full Year view of average ride lengths by membership type 'member', from April 2022 through March of 2023 using an agregate function, a GROUP BY clause and an ORDER BY clause.
 */
 
 
