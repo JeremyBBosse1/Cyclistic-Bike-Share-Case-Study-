@@ -66,6 +66,7 @@ SELECT
 FROM
 `bike_share_rides.mar_23`
 
+
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/19/2023
@@ -85,6 +86,7 @@ year
 ORDER BY
 year ASC,
 month ASC;
+
 
 month	year	avg_ride_length
 4	2022	0-0 0 0:15:33.146613189
@@ -106,6 +108,7 @@ CREATED BY: Jeremy Bosse
 CREATED ON: 6/21/2023
 DESCRIPTION: This statement creates a Full Year view of average ride lengths by membership type from April 2022 through March of 2023 using an agregate function, a GROUP BY clause and an ORDER BY clause.
 */
+
 
 SELECT
 member_casual,
@@ -147,4 +150,44 @@ member	1	2023	0-0 0 0:10:4.459542360
 member	2	2023	0-0 0 0:10:28.210692677
 casual	2	2023	0-0 0 0:16:37.874209596
 member	3	2023	0-0 0 0:10:12.021651389
+casual	3	2023	0-0 0 0:16:1.089001784
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/19/2023
+DESCRIPTION: This statement creates a Full Year view of average ride lengths by membership type "casual" from April 2022 through March of 2023 using an agregate function, a WHERE clause, a GROUP BY clause and an ORDER BY clause.
+*/
+
+
+SELECT
+member_casual,
+month,
+year,
+AVG(ride_length) AS avg_ride_length
+FROM
+`bike_share_rides.full_year`
+WHERE
+member_casual = 'casual'
+GROUP BY 
+member_casual,
+month,
+year
+ORDER BY
+year ASC,
+month ASC;
+
+
+member_casual	month	year	avg_ride_length
+casual	4	2022	0-0 0 0:23:42.701456291
+casual	5	2022	0-0 0 0:25:52.694737067
+casual	6	2022	0-0 0 0:23:55.966749222
+casual	7	2022	0-0 0 0:23:33.936068819
+casual	8	2022	0-0 0 0:22:4.131877286
+casual	9	2022	0-0 0 0:20:35.033741835
+casual	10	2022	0-0 0 0:18:58.412339464
+casual	11	2022	0-0 0 0:16:4.147706631
+casual	12	2022	0-0 0 0:14:0.844255357
+casual	1	2023	0-0 0 0:14:16.594056188
+casual	2	2023	0-0 0 0:16:37.874209596
 casual	3	2023	0-0 0 0:16:1.089001784
