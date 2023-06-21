@@ -196,7 +196,7 @@ casual	3	2023	0-0 0 0:16:1.089001784
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/21/2023
-DESCRIPTION: This statement creates a Full Year view of average ride lengths by membership type 'member', from April 2022 through March of 2023 using an agregate function, a GROUP BY clause and an ORDER BY clause.
+DESCRIPTION: This statement creates a Full Year view of average ride lengths by membership type 'member', from April 2022 through March of 2023 using an agregate function, a WHERE clause, a GROUP BY clause and an ORDER BY clause.
 */
 
 
