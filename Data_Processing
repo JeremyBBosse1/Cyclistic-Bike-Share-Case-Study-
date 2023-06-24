@@ -1,7 +1,7 @@
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 5/24/2023
-DESCRIPTION: This statement returns total count of records by count of ride_id, the primary key of the dataset, using an Aggregate function.
+DESCRIPTION: This statement returns the total count of records by count of ride_id, the primary key of the dataset, using an Aggregate function.
 */
 
 SELECT 
@@ -15,7 +15,7 @@ ride_count
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 5/24/2023
-DESCRIPTION: This statement returns total distinct records by count of ride_id, the primary key of the dataset, using a DISTINCT statement and an Aggregate function.
+DESCRIPTION: This statement returns total distinct records by the count of ride_id, the primary key of the dataset, using a DISTINCT statement and an Aggregate function.
 */
 
 SELECT 
@@ -29,7 +29,7 @@ distinct_rides
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 5/24/2023
-DESCRIPTION: This statement returns total number of records grouped by ride_id character length using an Aggregate function and a GROUP BY clause.
+DESCRIPTION: This statement returns the total number of records grouped by ride_id character length using an Aggregate function and a GROUP BY clause.
 */
 
 SELECT 
@@ -48,7 +48,7 @@ ride_id_lengths
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 5/24/2023
-DESCRIPTION: This statement returns ride_id's with various character lengths, and their total count. This statement includes a string function, an aggregate function and a GROUP BY clause.
+DESCRIPTION: This statement returns ride_ids with various character lengths and their total count. This statement includes a string function, an aggregate function, and a GROUP BY clause.
 */
 
 SELECT
@@ -68,7 +68,7 @@ ride_id_length	ride_id_count
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 5/24/2023
-DESCRIPTION: This statement returns the number of ride_id's  with a ride_id length greater than 16 characters. This statement uses an aggregate function, an WHERE clause, and an GREATER THAN operator.
+DESCRIPTION: This statement returns the number of ride_ids  with a ride_id length greater than 16 characters. This statement uses an aggregate function, a WHERE clause, and a GREATER THAN operator.
 */
 
 SELECT 
@@ -84,7 +84,7 @@ large_ride_ids
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 5/24/2023
-DESCRIPTION: This statement returns the number of ride_id's  with a character length less than 16. This statement uses an aggregate function, an WHERE clause, and an LESS THAN operator.
+DESCRIPTION: This statement returns the number of ride_ids  with a character length of less than 16. This statement uses an aggregate function, a WHERE clause, and a LESS THAN operator.
 */
 
 SELECT 
@@ -131,8 +131,8 @@ CREATED ON: 5/24/2023
 DESCRIPTION:
 The statement below is from a prior attempt at using SQLite Studio to clean the data tables from the same datasets (Naming conventions are different for this reason).
 This statement deletes records where ride_length has #'s instead of time values using a WHERE CLAUSE and a LIKE operator. 
-Logically "end_time" should be greater than "start_time" to calculate "ride_length". 
-The "#"'s indicate inconsistent and unreliable data and was eliminated from each table.
+Logically "end_time" should be greater than "start_time" to calculate "ride_length." 
+The "#" indicated inconsistent and unreliable data and was eliminated from each table.
 */
 
 DELETE
@@ -213,7 +213,7 @@ DROP TABLE bike_share_rides.april_2022;
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/9/2023
-DESCRIPTION: This statement deletes the modified original table from the dataset where the 'ride_length' data type is a STRING using the DROP TABLE Statement. Repeated for each table in the dataset.
+DESCRIPTION: This statement deletes the modified original table from the dataset where the 'ride_length' data type is STRING using the DROP TABLE Statement. Repeated for each table in the dataset.
 */
 
 DROP TABLE bike_share_rides.april_22;
