@@ -1,7 +1,7 @@
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/9/2023
-DESCRIPTION: This statement creates a Full Year table with data from April 2022 through March of 2023. This statement combines fields from all tables using a UNION ALL statement.
+DESCRIPTION: This statement creates a Full Year table with data from April 2022 through March 2023. This statement combines fields from all tables using a UNION ALL statement.
 */
 
 
@@ -70,7 +70,7 @@ FROM
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/19/2023
-DESCRIPTION: This statement creates a Full Year view of average ride lengths from April 2022 through March of 2023 using an agregate function, a GROUP BY clause and an ORDER BY clause.
+DESCRIPTION: This statement creates a Full Year view of average ride lengths from April 2022 through March 2023 using an aggregate function, a GROUP BY clause, and an ORDER BY clause.
 */
 
 
@@ -106,7 +106,7 @@ month	year	avg_ride_length
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/21/2023
-DESCRIPTION: This statement creates a Full Year view of average ride lengths by membership type, from April 2022 through March of 2023 using an agregate function, a GROUP BY clause and an ORDER BY clause.
+DESCRIPTION: This statement creates a Full Year view of average ride lengths by membership type from April 2022 through March 2023 using an aggregate function, a GROUP BY clause, and an ORDER BY clause.
 */
 
 
@@ -156,7 +156,7 @@ casual	3	2023	0-0 0 0:16:1.089001784
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/21/2023
-DESCRIPTION: This statement creates a Full Year view of average ride lengths by membership type "casual", from April 2022 through March of 2023 using an agregate function, a WHERE clause, a GROUP BY clause and an ORDER BY clause.
+DESCRIPTION: This statement creates a Full Year view of average ride lengths by membership type "casual" from April 2022 through March of 2023 using an aggregate function, a WHERE clause, a GROUP BY clause, and an ORDER BY clause.
 */
 
 
@@ -196,7 +196,7 @@ casual	3	2023	0-0 0 0:16:1.089001784
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/21/2023
-DESCRIPTION: This statement creates a Full Year view of average ride lengths by membership type 'member', from April 2022 through March of 2023 using an agregate function, a WHERE clause, a GROUP BY clause and an ORDER BY clause.
+DESCRIPTION: This statement creates a Full Year view of average ride lengths by membership type 'member' from April 2022 through March 2023 using an aggregate function, a WHERE clause, a GROUP BY clause, and an ORDER BY clause.
 */
 
 
@@ -236,7 +236,7 @@ member	3	2023	0-0 0 0:10:12.021651389
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/24/2023
-DESCRIPTION: This statement creates a table with average ride lengths per month within the full year of data, using a CREATE TABLE statement, an aggregate function, and a GROUP BY clause.
+DESCRIPTION: This statement creates a table with average monthly ride lengths within the full year of data using a CREATE TABLE statement, an aggregate function, and a GROUP BY clause.
 */
 
 
@@ -253,7 +253,7 @@ month
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/24/2023
-DESCRIPTION: This statement creates a table of average ride lengths per month by membership type, using an aggregate function, a LEFT JOIN clause, a GROUP BY statement, and an ORDER BY key word.
+DESCRIPTION: This statement creates a table of average monthly ride lengths by membership type using an aggregate function, a LEFT JOIN clause, a GROUP BY statement, and an ORDER BY key word.
 */
 
 
@@ -307,7 +307,7 @@ member	3	2023	0-0 0 0:10:12.021651389	0-0 0 0:11:35.957425834
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/24/2023
-DESCRIPTION: This statement creates a table with average ride lengths per day within the full year of data, using a CREATE TABLE statement, an aggregate function, and a GROUP BY clause.
+DESCRIPTION: This statement creates a table with average ride lengths per day within the full year of data using a CREATE TABLE statement, an aggregate function, and a GROUP BY clause.
 */
 
 
@@ -324,7 +324,7 @@ day_of_week
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/24/2023
-DESCRIPTION: This statement creates a table of average ride lengths by day, by month, and by membership type, using an aggregate function, a LEFT JOIN clause, a GROUP BY statement, and an ORDER BY key word.
+DESCRIPTION: This statement creates a table of average ride lengths by day, month, and membership type using an aggregate function, a LEFT JOIN clause, a GROUP BY statement, and ORDER BY keywords.
 */
 
 
