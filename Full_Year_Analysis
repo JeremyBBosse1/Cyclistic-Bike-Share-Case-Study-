@@ -1397,3 +1397,142 @@ casual	22	86575	175482
 member	22	88907	175482
 casual	23	64566	122881
 member	23	58315	122881
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 7/3/2023
+DESCRIPTION: 
+*/
+
+
+SELECT
+rideable_type,
+COUNT(ride_id) AS number_of_rides
+FROM
+`bike_share_rides.full_year`
+GROUP BY
+rideable_type;
+
+
+rideable_type	number_of_rides
+electric_bike	2990342
+classic_bike	2639532
+docked_bike	173747
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 7/3/2023
+DESCRIPTION: 
+*/
+
+
+CREATE TABLE bike_share_rides.rides_per_bike AS
+SELECT
+rideable_type,
+COUNT(ride_id) AS number_of_rides_by_bike
+FROM
+`bike_share_rides.full_year`
+GROUP BY
+rideable_type;
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 7/3/2023
+DESCRIPTION: 
+*/
+
+
+SELECT
+member_casual,
+A.rideable_type,
+COUNT(ride_id) AS number_of_rides_per_bike_by_member,
+B.number_of_rides_by_bike
+FROM
+`bike_share_rides.full_year` A
+LEFT JOIN
+`bike_share_rides.rides_per_bike` AS B
+ON
+A.rideable_type = B.rideable_type
+GROUP BY
+member_casual,
+A.rideable_type,
+B.number_of_rides_by_bike;
+
+
+member_casual	rideable_type	number_of_rides_per_bike_by_member	number_of_rides_by_bike
+casual	electric_bike	1273764	2990342
+member	electric_bike	1716578	2990342
+casual	classic_bike	889875	2639532
+member	classic_bike	1749657	2639532
+casual	docked_bike	173747	173747
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 7/3/2023
+DESCRIPTION: 
+*/
+
+
+SELECT
+A.rideable_type,
+A.month,
+A.year,
+COUNT(ride_id) AS number_of_rides_by_bike,
+B.total_rides_by_month
+FROM
+`bike_share_rides.full_year` A
+LEFT JOIN
+`bike_share_rides.total_rides_by_month` AS B
+ON
+A.month = B.month
+GROUP BY
+A.month,
+A.year,
+A.rideable_type,
+B.total_rides_by_month
+ORDER BY
+year ASC,
+month ASC;
+
+
+rideable_type	month	year	number_of_rides_by_bike	total_rides_by_month
+electric_bike	4	2022	192421	371249
+classic_bike	4	2022	166712	371249
+docked_bike	4	2022	12116	371249
+electric_bike	5	2022	284402	634857
+docked_bike	5	2022	26409	634857
+classic_bike	5	2022	324046	634857
+electric_bike	6	2022	331892	769192
+classic_bike	6	2022	406660	769192
+docked_bike	6	2022	30640	769192
+electric_bike	7	2022	419254	823472
+classic_bike	7	2022	373163	823472
+docked_bike	7	2022	31055	823472
+electric_bike	8	2022	415545	785917
+classic_bike	8	2022	344049	785917
+docked_bike	8	2022	26323	785917
+electric_bike	9	2022	375363	701330
+classic_bike	9	2022	306141	701330
+docked_bike	9	2022	19826	701330
+electric_bike	10	2022	332508	558681
+classic_bike	10	2022	213559	558681
+docked_bike	10	2022	12614	558681
+electric_bike	11	2022	187221	337694
+classic_bike	11	2022	144587	337694
+docked_bike	11	2022	5886	337694
+electric_bike	12	2022	106531	181806
+classic_bike	12	2022	73350	181806
+docked_bike	12	2022	1925	181806
+electric_bike	1	2023	98269	190301
+docked_bike	1	2023	1738	190301
+classic_bike	1	2023	90294	190301
+electric_bike	2	2023	98361	190444
+classic_bike	2	2023	89888	190444
+docked_bike	2	2023	2195	190444
+electric_bike	3	2023	148575	258678
+classic_bike	3	2023	107083	258678
+docked_bike	3	2023	3020	258678
