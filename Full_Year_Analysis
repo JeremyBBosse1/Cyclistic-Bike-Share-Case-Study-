@@ -1538,9 +1538,10 @@ classic_bike	3	2023	107083	258678
 docked_bike	3	2023	3020	258678
 
 
+
 /* 
 CREATED BY: Jeremy Bosse
-CREATED ON: 7/3/2023
+CREATED ON: 7/4/2023
 DESCRIPTION: 
 */
 
@@ -1555,53 +1556,53 @@ start_station_name IS NOT NULL
 GROUP BY
 start_station_name
 ORDER BY
-total_station_ride_count DESC;
+total_station_ride_count DESC
+LIMIT 10;
+
+start_station_name	total_station_ride_count
+Streeter Dr & Grand Ave	74169
+DuSable Lake Shore Dr & Monroe St	40657
+DuSable Lake Shore Dr & North Blvd	39661
+Michigan Ave & Oak St	39528
+Wells St & Concord Ln	38322
+Clark St & Elm St	36007
+Millennium Park	34788
+Kingsbury St & Kinzie St	34342
+Theater on the Lake	32595
+Wells St & Elm St	32224
 
 
 /* 
 CREATED BY: Jeremy Bosse
-CREATED ON: 7/3/2023
+CREATED ON: 7/4/2023
 DESCRIPTION: 
 */
 
 
-CREATE TABLE bike_share_rides.rides_per_station AS
 SELECT
-DISTINCT start_station_name,
-COUNT(DISTINCT ride_id) AS total_station_ride_count
+start_station_name,
+SUM(CASE WHEN member_casual = 'member' AND start_station_name = start_station_name THEN 1 ELSE 0 END) AS member_count,
+SUM(CASE WHEN member_casual = 'casual' AND start_station_name = start_station_name THEN 1 ELSE 0 END)  AS casual_count,
+COUNT(ride_id) AS total_rides
 FROM
-`bike_share_rides.full_year`
+`bike_share_rides.full_year` 
 WHERE
 start_station_name IS NOT NULL
 GROUP BY
 start_station_name
 ORDER BY
-total_station_ride_count DESC;
+total_rides DESC
+LIMIT 10;
 
 
-/* 
-CREATED BY: Jeremy Bosse
-CREATED ON: 7/3/2023
-DESCRIPTION: 
-*/
-
-
-SELECT
-A.start_station_name,
-A.member_casual,
-COUNT(ride_id) AS member_count,
-B.total_station_ride_count
-FROM
-`bike_share_rides.full_year` AS A
-LEFT JOIN
-`bike_share_rides.rides_per_station` AS B
-ON
-A.start_station_name = B.start_station_name
-WHERE
-A.start_station_name IS NOT NULL
-GROUP BY
-A.member_casual,
-A.start_station_name,
-B.total_station_ride_count
-ORDER BY
-total_station_ride_count DESC;
+start_station_name	member_count	casual_count	total_rides
+Streeter Dr & Grand Ave	17157	57012	74169
+DuSable Lake Shore Dr & Monroe St	9211	31446	40657
+DuSable Lake Shore Dr & North Blvd	16314	23347	39661
+Michigan Ave & Oak St	14556	24972	39528
+Wells St & Concord Ln	21955	16367	38322
+Clark St & Elm St	22970	13037	36007
+Millennium Park	9596	25192	34788
+Kingsbury St & Kinzie St	25272	9070	34342
+Theater on the Lake	14417	18178	32595
+Wells St & Elm St	19778	12446	32224
