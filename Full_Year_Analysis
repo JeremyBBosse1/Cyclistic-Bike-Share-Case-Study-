@@ -1536,3 +1536,72 @@ docked_bike	2	2023	2195	190444
 electric_bike	3	2023	148575	258678
 classic_bike	3	2023	107083	258678
 docked_bike	3	2023	3020	258678
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 7/3/2023
+DESCRIPTION: 
+*/
+
+
+SELECT
+DISTINCT start_station_name,
+COUNT(DISTINCT ride_id) AS total_station_ride_count
+FROM
+`bike_share_rides.full_year`
+WHERE
+start_station_name IS NOT NULL
+GROUP BY
+start_station_name
+ORDER BY
+total_station_ride_count DESC;
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 7/3/2023
+DESCRIPTION: 
+*/
+
+
+CREATE TABLE bike_share_rides.rides_per_station AS
+SELECT
+DISTINCT start_station_name,
+COUNT(DISTINCT ride_id) AS total_station_ride_count
+FROM
+`bike_share_rides.full_year`
+WHERE
+start_station_name IS NOT NULL
+GROUP BY
+start_station_name
+ORDER BY
+total_station_ride_count DESC;
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 7/3/2023
+DESCRIPTION: 
+*/
+
+
+SELECT
+A.start_station_name,
+A.member_casual,
+COUNT(ride_id) AS member_count,
+B.total_station_ride_count
+FROM
+`bike_share_rides.full_year` AS A
+LEFT JOIN
+`bike_share_rides.rides_per_station` AS B
+ON
+A.start_station_name = B.start_station_name
+WHERE
+A.start_station_name IS NOT NULL
+GROUP BY
+A.member_casual,
+A.start_station_name,
+B.total_station_ride_count
+ORDER BY
+total_station_ride_count DESC;
