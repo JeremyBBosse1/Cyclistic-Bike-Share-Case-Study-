@@ -217,3 +217,68 @@ DESCRIPTION: This statement deletes the modified original table from the dataset
 */
 
 DROP TABLE bike_share_rides.april_22;
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 8/7/2023
+DESCRIPTION: 
+*/
+
+
+CREATE TABLE bike_share_rides.avg_ride_length_by_member_final_1 AS
+SELECT
+month,
+year,
+FORMAT('%02d:%02d:%02d',
+CAST(EXTRACT(HOUR FROM casual_avg) AS INT64),
+CAST(EXTRACT(MINUTE FROM casual_avg) AS INT64),
+CAST(EXTRACT(SECOND FROM casual_avg) AS INT64)
+) AS casual_avg,
+FORMAT('%02d:%02d:%02d',
+CAST(EXTRACT(HOUR FROM member_avg) AS INT64),
+CAST(EXTRACT(MINUTE FROM member_avg) AS INT64),
+CAST(EXTRACT(SECOND FROM member_avg) AS INT64)
+) AS member_avg,
+FORMAT('%02d:%02d:%02d',
+CAST(EXTRACT(HOUR FROM total_avg) AS INT64),
+CAST(EXTRACT(MINUTE FROM total_avg) AS INT64),
+CAST(EXTRACT(SECOND FROM total_avg) AS INT64)
+) AS total_avg
+FROM
+`bike_share_rides.avg_ride_length_by_member`
+ORDER BY
+year ASC,
+month ASC;
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 8/7/2023
+DESCRIPTION: 
+*/
+
+
+CREATE TABLE bike_share_rides.avg_ride_length_by_member_final_1 AS
+SELECT
+month,
+year,
+FORMAT('%02d:%02d:%02d',
+CAST(EXTRACT(HOUR FROM casual_avg) AS INT64),
+CAST(EXTRACT(MINUTE FROM casual_avg) AS INT64),
+CAST(EXTRACT(SECOND FROM casual_avg) AS INT64)
+) AS casual_avg,
+FORMAT('%02d:%02d:%02d',
+CAST(EXTRACT(HOUR FROM member_avg) AS INT64),
+CAST(EXTRACT(MINUTE FROM member_avg) AS INT64),
+CAST(EXTRACT(SECOND FROM member_avg) AS INT64)
+) AS member_avg,
+FORMAT('%02d:%02d:%02d',
+CAST(EXTRACT(HOUR FROM total_avg) AS INT64),
+CAST(EXTRACT(MINUTE FROM total_avg) AS INT64),
+CAST(EXTRACT(SECOND FROM total_avg) AS INT64)
+) AS total_avg
+FROM
+`bike_share_rides.avg_ride_length_by_member`
+ORDER BY
+year ASC,
+month ASC;
