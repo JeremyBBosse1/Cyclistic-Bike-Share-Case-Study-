@@ -105,58 +105,8 @@ month	year	avg_ride_length
 
 /* 
 CREATED BY: Jeremy Bosse
-CREATED ON: 6/21/2023
-DESCRIPTION: This statement creates a Full Year view of average ride lengths by membership type from April 2022 through March 2023 using an aggregate function, a GROUP BY clause, and an ORDER BY clause.
-*/
-
-
-SELECT
-member_casual,
-month,
-year,
-AVG(ride_length) AS avg_ride_length
-FROM
-`bike_share_rides.full_year`
-GROUP BY 
-member_casual,
-month,
-year
-ORDER BY
-year ASC,
-month ASC;
-
-
-member_casual	month	year	avg_ride_length
-casual	4	2022	0-0 0 0:23:42.701456291
-member	4	2022	0-0 0 0:11:20.368975460
-casual	5	2022	0-0 0 0:25:52.694737067
-member	5	2022	0-0 0 0:13:3.474643313
-member	6	2022	0-0 0 0:13:39.227788218
-casual	6	2022	0-0 0 0:23:55.966749222
-casual	7	2022	0-0 0 0:23:33.936068819
-member	7	2022	0-0 0 0:13:25.939047879
-member	8	2022	0-0 0 0:13:5.058421545
-casual	8	2022	0-0 0 0:22:4.131877286
-member	9	2022	0-0 0 0:12:38.057246512
-casual	9	2022	0-0 0 0:20:35.033741835
-casual	10	2022	0-0 0 0:18:58.412339464
-member	10	2022	0-0 0 0:11:32.818043255
-member	11	2022	0-0 0 0:10:51.872904067
-casual	11	2022	0-0 0 0:16:4.147706631
-casual	12	2022	0-0 0 0:14:0.844255357
-member	12	2022	0-0 0 0:10:20.761649818
-casual	1	2023	0-0 0 0:14:16.594056188
-member	1	2023	0-0 0 0:10:4.459542360
-member	2	2023	0-0 0 0:10:28.210692677
-casual	2	2023	0-0 0 0:16:37.874209596
-member	3	2023	0-0 0 0:10:12.021651389
-casual	3	2023	0-0 0 0:16:1.089001784
-
-
-/* 
-CREATED BY: Jeremy Bosse
-CREATED ON: 6/21/2023
-DESCRIPTION: This statement creates a Full Year view of average ride lengths by membership type "casual" from April 2022 through March of 2023 using an aggregate function, a WHERE clause, a GROUP BY clause, and an ORDER BY clause.
+CREATED ON: 6/19/2023
+DESCRIPTION: This statement creates a Full Year view of average ride lengths by membership type 'casual' from April 2022 through March of 2023 using an agregate function, a GROUP BY clause and an ORDER BY clause.
 */
 
 
@@ -195,8 +145,8 @@ casual	3	2023	0-0 0 0:16:1.089001784
 
 /* 
 CREATED BY: Jeremy Bosse
-CREATED ON: 6/21/2023
-DESCRIPTION: This statement creates a Full Year view of average ride lengths by membership type 'member' from April 2022 through March 2023 using an aggregate function, a WHERE clause, a GROUP BY clause, and an ORDER BY clause.
+CREATED ON: 6/19/2023
+DESCRIPTION: This statement creates a Full Year view of average ride lengths by membership type 'member' from April 2022 through March of 2023 using an agregate function, a GROUP BY clause and an ORDER BY clause.
 */
 
 
@@ -236,24 +186,25 @@ member	3	2023	0-0 0 0:10:12.021651389
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/24/2023
-DESCRIPTION: This statement creates a table with average monthly ride lengths within the full year of data using a CREATE TABLE statement, an aggregate function, and a GROUP BY clause.
+DESCRIPTION: This statement creates a table with average ride lengths per month within the full year of data, using a CREATE TABLE statement, an aggregate function, and a GROUP BY clause.
 */
 
 
 CREATE TABLE bike_share_rides.avg_ride_length_by_month AS
 SELECT
 month,
+member_casual,
 AVG(ride_length) AS avg_ride_length_by_calendar_month
 FROM
 `bike_share_rides.full_year`
 GROUP BY
-month
-
+member_casual,
+month;
 
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/24/2023
-DESCRIPTION: This statement creates a table of average monthly ride lengths by membership type using an aggregate function, a LEFT JOIN clause, a GROUP BY statement, and an ORDER BY key word.
+DESCRIPTION: This statement creates a table of average ride lengths per month by membership type, using an aggregate function, a LEFT JOIN clause, a GROUP BY statement, and an ORDER BY key word.
 */
 
 
@@ -300,850 +251,1348 @@ month	year	casual_avg	member_avg	total_avg
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/24/2023
-DESCRIPTION: This statement creates a table with average ride lengths per day within the full year of data using a CREATE TABLE statement, an aggregate function, and a GROUP BY clause.
+DESCRIPTION: This statement creates a table with average ride lengths per day within the full year of data, using a CREATE TABLE statement, an aggregate function, and a GROUP BY clause.
 */
 
 
-CREATE TABLE bike_share_rides.avg_ride_length_by_day AS
+CREATE TABLE `bike_share_rides.daily_casual_avg_fy`  
+AS
 SELECT
 day_of_week,
-AVG(ride_length) AS avg_ride_length_by_day
+AVG(ride_length) AS daily_casual_avg_fy
 FROM
 `bike_share_rides.full_year`
-GROUP BY
-day_of_week
-
-
-/* 
-CREATED BY: Jeremy Bosse
-CREATED ON: 6/24/2023
-DESCRIPTION: This statement creates a table of average ride lengths by day, month, and membership type using an aggregate function, a LEFT JOIN clause, a GROUP BY statement, and ORDER BY keywords.
-*/
-
-
-SELECT
-member_casual,
-A.day_of_week AS day_of_week,
-A.month,
-year AS calendar_year,
-AVG(ride_length) AS avg_ride_length_by_member,
-avg_ride_length_by_day
-FROM
-`bike_share_rides.full_year` AS A
-LEFT JOIN
-`bike_share_rides.avg_ride_length_by_day`AS B
-ON A.day_of_week = B.day_of_week
-GROUP BY 
-member_casual,
-A.day_of_week,
-A.month,
-year,
-avg_ride_length_by_day
-ORDER BY
-year ASC,
-A.month ASC,
-A.day_of_week ASC;
-
-
-member_casual	day_of_week	month	calendar_year	avg_ride_length_by_member	avg_ride_length_by_day
-member	1	4	2022	0-0 0 0:12:22.046274109	0-0 0 0:19:16.891142838
-casual	1	4	2022	0-0 0 0:26:7.506034660	0-0 0 0:19:16.891142838
-casual	2	4	2022	0-0 0 0:21:7.522175246	0-0 0 0:15:28.997341695
-member	2	4	2022	0-0 0 0:10:35.664171406	0-0 0 0:15:28.997341695
-member	3	4	2022	0-0 0 0:10:41.367728531	0-0 0 0:14:16.293785996
-casual	3	4	2022	0-0 0 0:20:28.754639175	0-0 0 0:14:16.293785996
-member	4	4	2022	0-0 0 0:10:24.216074350	0-0 0 0:13:57.077683813
-casual	4	4	2022	0-0 0 0:17:53.954002103	0-0 0 0:13:57.077683813
-member	5	4	2022	0-0 0 0:11:12.586293561	0-0 0 0:14:36.247404377
-casual	5	4	2022	0-0 0 0:21:50.053042493	0-0 0 0:14:36.247404377
-casual	6	4	2022	0-0 0 0:20:14.081602373	0-0 0 0:15:34.797038741
-member	6	4	2022	0-0 0 0:10:50.866362650	0-0 0 0:15:34.797038741
-member	7	4	2022	0-0 0 0:13:23.931568024	0-0 0 0:19:17.784396542
-casual	7	4	2022	0-0 0 0:28:43.791659785	0-0 0 0:19:17.784396542
-member	1	5	2022	0-0 0 0:14:7.451859597	0-0 0 0:19:16.891142838
-casual	1	5	2022	0-0 0 0:28:40.175846423	0-0 0 0:19:16.891142838
-member	2	5	2022	0-0 0 0:13:8.224118206	0-0 0 0:15:28.997341695
-casual	2	5	2022	0-0 0 0:27:42.514072638	0-0 0 0:15:28.997341695
-member	3	5	2022	0-0 0 0:12:23.517894630	0-0 0 0:14:16.293785996
-casual	3	5	2022	0-0 0 0:23:15.117631961	0-0 0 0:14:16.293785996
-member	4	5	2022	0-0 0 0:12:5.866088653	0-0 0 0:13:57.077683813
-casual	4	5	2022	0-0 0 0:21:39.856062494	0-0 0 0:13:57.077683813
-member	5	5	2022	0-0 0 0:12:49.454948415	0-0 0 0:14:36.247404377
-casual	5	5	2022	0-0 0 0:23:39.337375370	0-0 0 0:14:36.247404377
-member	6	5	2022	0-0 0 0:12:24.617773575	0-0 0 0:15:34.797038741
-casual	6	5	2022	0-0 0 0:23:13.312860599	0-0 0 0:15:34.797038741
-casual	7	5	2022	0-0 0 0:27:59.922069813	0-0 0 0:19:17.784396542
-member	7	5	2022	0-0 0 0:14:30.823669296	0-0 0 0:19:17.784396542
-casual	1	6	2022	0-0 0 0:27:20.765986849	0-0 0 0:19:16.891142838
-member	1	6	2022	0-0 0 0:15:28.697607109	0-0 0 0:19:16.891142838
-member	2	6	2022	0-0 0 0:12:53.730867047	0-0 0 0:15:28.997341695
-casual	2	6	2022	0-0 0 0:24:16.676062047	0-0 0 0:15:28.997341695
-member	3	6	2022	0-0 0 0:13:10.407515186	0-0 0 0:14:16.293785996
-casual	3	6	2022	0-0 0 0:22:25.542363275	0-0 0 0:14:16.293785996
-casual	4	6	2022	0-0 0 0:20:56.470498274	0-0 0 0:13:57.077683813
-member	4	6	2022	0-0 0 0:12:46.239487186	0-0 0 0:13:57.077683813
-casual	5	6	2022	0-0 0 0:22:13.385146089	0-0 0 0:14:36.247404377
-member	5	6	2022	0-0 0 0:13:17.613183673	0-0 0 0:14:36.247404377
-member	6	6	2022	0-0 0 0:13:36.139545026	0-0 0 0:15:34.797038741
-casual	6	6	2022	0-0 0 0:23:26.392729290	0-0 0 0:15:34.797038741
-member	7	6	2022	0-0 0 0:14:54.765444520	0-0 0 0:19:17.784396542
-casual	7	6	2022	0-0 0 0:25:21.058553510	0-0 0 0:19:17.784396542
-casual	1	7	2022	0-0 0 0:26:36.562868206	0-0 0 0:19:16.891142838
-member	1	7	2022	0-0 0 0:14:46.989537257	0-0 0 0:19:16.891142838
-casual	2	7	2022	0-0 0 0:24:43.395942780	0-0 0 0:15:28.997341695
-member	2	7	2022	0-0 0 0:13:12.663490471	0-0 0 0:15:28.997341695
-casual	3	7	2022	0-0 0 0:21:6.141047602	0-0 0 0:14:16.293785996
-member	3	7	2022	0-0 0 0:12:36.613716968	0-0 0 0:14:16.293785996
-member	4	7	2022	0-0 0 0:12:38.664323698	0-0 0 0:13:57.077683813
-casual	4	7	2022	0-0 0 0:20:16.078786464	0-0 0 0:13:57.077683813
-casual	5	7	2022	0-0 0 0:20:7.658380934	0-0 0 0:14:36.247404377
-member	5	7	2022	0-0 0 0:12:45.605216253	0-0 0 0:14:36.247404377
-casual	6	7	2022	0-0 0 0:21:14.482036669	0-0 0 0:15:34.797038741
-member	6	7	2022	0-0 0 0:12:42.888730269	0-0 0 0:15:34.797038741
-casual	7	7	2022	0-0 0 0:26:11.420424236	0-0 0 0:19:17.784396542
-member	7	7	2022	0-0 0 0:15:2.840199224	0-0 0 0:19:17.784396542
-casual	1	8	2022	0-0 0 0:24:41.217074386	0-0 0 0:19:16.891142838
-member	1	8	2022	0-0 0 0:14:3.937098575	0-0 0 0:19:16.891142838
-casual	2	8	2022	0-0 0 0:21:2.465664172	0-0 0 0:15:28.997341695
-member	2	8	2022	0-0 0 0:12:18.972844318	0-0 0 0:15:28.997341695
-casual	3	8	2022	0-0 0 0:21:6.346781082	0-0 0 0:14:16.293785996
-member	3	8	2022	0-0 0 0:12:46.726074715	0-0 0 0:14:16.293785996
-casual	4	8	2022	0-0 0 0:19:31.013750776	0-0 0 0:13:57.077683813
-member	4	8	2022	0-0 0 0:12:46.127701785	0-0 0 0:13:57.077683813
-casual	5	8	2022	0-0 0 0:20:18.667186134	0-0 0 0:14:36.247404377
-member	5	8	2022	0-0 0 0:12:45.906778187	0-0 0 0:14:36.247404377
-member	6	8	2022	0-0 0 0:13:15.721871113	0-0 0 0:15:34.797038741
-casual	6	8	2022	0-0 0 0:22:27.137390753	0-0 0 0:15:34.797038741
-member	7	8	2022	0-0 0 0:14:16.127368400	0-0 0 0:19:17.784396542
-casual	7	8	2022	0-0 0 0:24:21.111137970	0-0 0 0:19:17.784396542
-casual	1	9	2022	0-0 0 0:23:3.586942130	0-0 0 0:19:16.891142838
-member	1	9	2022	0-0 0 0:13:49.181678278	0-0 0 0:19:16.891142838
-member	2	9	2022	0-0 0 0:12:18.334064358	0-0 0 0:15:28.997341695
-casual	2	9	2022	0-0 0 0:21:23.626710894	0-0 0 0:15:28.997341695
-casual	3	9	2022	0-0 0 0:17:39.879706617	0-0 0 0:14:16.293785996
-member	3	9	2022	0-0 0 0:11:54.101134430	0-0 0 0:14:16.293785996
-member	4	9	2022	0-0 0 0:12:2.339956101	0-0 0 0:13:57.077683813
-casual	4	9	2022	0-0 0 0:17:53.523131566	0-0 0 0:13:57.077683813
-member	5	9	2022	0-0 0 0:12:12.181031218	0-0 0 0:14:36.247404377
-casual	5	9	2022	0-0 0 0:17:35.725424320	0-0 0 0:14:36.247404377
-casual	6	9	2022	0-0 0 0:19:55.524217433	0-0 0 0:15:34.797038741
-member	6	9	2022	0-0 0 0:12:34.254420771	0-0 0 0:15:34.797038741
-member	7	9	2022	0-0 0 0:14:17.170995390	0-0 0 0:19:17.784396542
-casual	7	9	2022	0-0 0 0:24:15.798614145	0-0 0 0:19:17.784396542
-casual	1	10	2022	0-0 0 0:22:31.524048253	0-0 0 0:19:16.891142838
-member	1	10	2022	0-0 0 0:12:52.128519239	0-0 0 0:19:16.891142838
-member	2	10	2022	0-0 0 0:10:58.372570212	0-0 0 0:15:28.997341695
-casual	2	10	2022	0-0 0 0:18:3.137328339	0-0 0 0:15:28.997341695
-casual	3	10	2022	0-0 0 0:14:42.653625589	0-0 0 0:14:16.293785996
-member	3	10	2022	0-0 0 0:10:40.369226124	0-0 0 0:14:16.293785996
-casual	4	10	2022	0-0 0 0:14:52.770310299	0-0 0 0:13:57.077683813
-member	4	10	2022	0-0 0 0:10:51.081872660	0-0 0 0:13:57.077683813
-member	5	10	2022	0-0 0 0:10:41.348247288	0-0 0 0:14:36.247404377
-casual	5	10	2022	0-0 0 0:15:10.439672348	0-0 0 0:14:36.247404377
-member	6	10	2022	0-0 0 0:11:22.780450426	0-0 0 0:15:34.797038741
-casual	6	10	2022	0-0 0 0:17:24.865699218	0-0 0 0:15:34.797038741
-casual	7	10	2022	0-0 0 0:21:43.758550036	0-0 0 0:19:17.784396542
-member	7	10	2022	0-0 0 0:13:0.967008961	0-0 0 0:19:17.784396542
-member	1	11	2022	0-0 0 0:11:32.193884773	0-0 0 0:19:16.891142838
-casual	1	11	2022	0-0 0 0:19:26.882937780	0-0 0 0:19:16.891142838
-casual	2	11	2022	0-0 0 0:13:48.251650485	0-0 0 0:15:28.997341695
-member	2	11	2022	0-0 0 0:10:20.679389549	0-0 0 0:15:28.997341695
-casual	3	11	2022	0-0 0 0:13:52.457742914	0-0 0 0:14:16.293785996
-member	3	11	2022	0-0 0 0:10:37.388233508	0-0 0 0:14:16.293785996
-casual	4	11	2022	0-0 0 0:14:42.000449969	0-0 0 0:13:57.077683813
-member	4	11	2022	0-0 0 0:10:44.396960883	0-0 0 0:13:57.077683813
-member	5	11	2022	0-0 0 0:11:16.235527156	0-0 0 0:14:36.247404377
-casual	5	11	2022	0-0 0 0:17:21.849785885	0-0 0 0:14:36.247404377
-casual	6	11	2022	0-0 0 0:15:53.812697757	0-0 0 0:15:34.797038741
-member	6	11	2022	0-0 0 0:10:55.220888434	0-0 0 0:15:34.797038741
-member	7	11	2022	0-0 0 0:10:57.797994129	0-0 0 0:19:17.784396542
-casual	7	11	2022	0-0 0 0:17:42.433650686	0-0 0 0:19:17.784396542
-member	1	12	2022	0-0 0 0:10:43.817446562	0-0 0 0:19:16.891142838
-casual	1	12	2022	0-0 0 0:15:8.307505146	0-0 0 0:19:16.891142838
-casual	2	12	2022	0-0 0 0:12:27.059562398	0-0 0 0:15:28.997341695
-member	2	12	2022	0-0 0 0:10:15.574990735	0-0 0 0:15:28.997341695
-casual	3	12	2022	0-0 0 0:11:40.399019773	0-0 0 0:14:16.293785996
-member	3	12	2022	0-0 0 0:10:4.208567034	0-0 0 0:14:16.293785996
-member	4	12	2022	0-0 0 0:10:14.646017260	0-0 0 0:13:57.077683813
-casual	4	12	2022	0-0 0 0:13:19.144240929	0-0 0 0:13:57.077683813
-casual	5	12	2022	0-0 0 0:14:3.459092576	0-0 0 0:14:36.247404377
-member	5	12	2022	0-0 0 0:10:8.240524081	0-0 0 0:14:36.247404377
-member	6	12	2022	0-0 0 0:10:31.533719865	0-0 0 0:15:34.797038741
-casual	6	12	2022	0-0 0 0:15:34.575321408	0-0 0 0:15:34.797038741
-casual	7	12	2022	0-0 0 0:15:3.044230519	0-0 0 0:19:17.784396542
-member	7	12	2022	0-0 0 0:10:46.552402393	0-0 0 0:19:17.784396542
-member	1	1	2023	0-0 0 0:11:18.706986052	0-0 0 0:19:16.891142838
-casual	1	1	2023	0-0 0 0:18:49.381527363	0-0 0 0:19:16.891142838
-member	2	1	2023	0-0 0 0:9:48.335732261	0-0 0 0:15:28.997341695
-casual	2	1	2023	0-0 0 0:13:59.930677430	0-0 0 0:15:28.997341695
-member	3	1	2023	0-0 0 0:9:57.352418558	0-0 0 0:14:16.293785996
-casual	3	1	2023	0-0 0 0:12:45.724073001	0-0 0 0:14:16.293785996
-casual	4	1	2023	0-0 0 0:13:26.249414519	0-0 0 0:13:57.077683813
-member	4	1	2023	0-0 0 0:9:56.058723679	0-0 0 0:13:57.077683813
-member	5	1	2023	0-0 0 0:9:30.956899977	0-0 0 0:14:36.247404377
-casual	5	1	2023	0-0 0 0:11:47.576065312	0-0 0 0:14:36.247404377
-member	6	1	2023	0-0 0 0:10:0.169824456	0-0 0 0:15:34.797038741
-casual	6	1	2023	0-0 0 0:11:53.591779728	0-0 0 0:15:34.797038741
-member	7	1	2023	0-0 0 0:10:34.201948447	0-0 0 0:19:17.784396542
-casual	7	1	2023	0-0 0 0:16:45.847518437	0-0 0 0:19:17.784396542
-member	1	2	2023	0-0 0 0:12:21.191227811	0-0 0 0:19:16.891142838
-casual	1	2	2023	0-0 0 0:21:42.507483676	0-0 0 0:19:16.891142838
-member	2	2	2023	0-0 0 0:10:6.219671190	0-0 0 0:15:28.997341695
-casual	2	2	2023	0-0 0 0:15:14.087212728	0-0 0 0:15:28.997341695
-casual	3	2	2023	0-0 0 0:13:46.127097621	0-0 0 0:14:16.293785996
-member	3	2	2023	0-0 0 0:9:53.745101463	0-0 0 0:14:16.293785996
-casual	4	2	2023	0-0 0 0:11:36.522176097	0-0 0 0:13:57.077683813
-member	4	2	2023	0-0 0 0:9:39.183125147	0-0 0 0:13:57.077683813
-member	5	2	2023	0-0 0 0:9:45.824255788	0-0 0 0:14:36.247404377
-casual	5	2	2023	0-0 0 0:13:29.276670258	0-0 0 0:14:36.247404377
-member	6	2	2023	0-0 0 0:10:3.326035468	0-0 0 0:15:34.797038741
-casual	6	2	2023	0-0 0 0:14:45.968470588	0-0 0 0:15:34.797038741
-casual	7	2	2023	0-0 0 0:19:42.159424502	0-0 0 0:19:17.784396542
-member	7	2	2023	0-0 0 0:11:52.407113716	0-0 0 0:19:17.784396542
-member	1	3	2023	0-0 0 0:10:50.086043399	0-0 0 0:19:16.891142838
-casual	1	3	2023	0-0 0 0:19:35.217844570	0-0 0 0:19:16.891142838
-member	2	3	2023	0-0 0 0:9:47.710594722	0-0 0 0:15:28.997341695
-casual	2	3	2023	0-0 0 0:15:28.904517453	0-0 0 0:15:28.997341695
-member	3	3	2023	0-0 0 0:10:18.182862300	0-0 0 0:14:16.293785996
-casual	3	3	2023	0-0 0 0:16:9.797483458	0-0 0 0:14:16.293785996
-member	4	3	2023	0-0 0 0:10:17.814394606	0-0 0 0:13:57.077683813
-casual	4	3	2023	0-0 0 0:14:55.079433878	0-0 0 0:13:57.077683813
-casual	5	3	2023	0-0 0 0:14:6.245728395	0-0 0 0:14:36.247404377
-member	5	3	2023	0-0 0 0:9:45.617765027	0-0 0 0:14:36.247404377
-member	6	3	2023	0-0 0 0:9:56.158086091	0-0 0 0:15:34.797038741
-casual	6	3	2023	0-0 0 0:15:35.859218115	0-0 0 0:15:34.797038741
-member	7	3	2023	0-0 0 0:11:7.746727980	0-0 0 0:19:17.784396542
-casual	7	3	2023	0-0 0 0:17:29.095792637	0-0 0 0:19:17.784396542
-
-
-/* 
-CREATED BY: Jeremy Bosse
-CREATED ON: 6/25/2023
-DESCRIPTION: 
-*/
-
-
-SELECT 
-member_casual,
-month,
-year,
-COUNT(ride_id) AS total_rides
-FROM
-`bike_share_rides.full_year`
-GROUP BY 
-member_casual,
-month,
-year
-ORDER BY
-year ASC,
-Month ASC;
-
-
-member_casual	month	year	total_rides
-member	4	2022	244832
-casual	4	2022	126417
-member	5	2022	354443
-casual	5	2022	280414
-member	6	2022	400148
-casual	6	2022	369044
-member	7	2022	417426
-casual	7	2022	406046
-casual	8	2022	358917
-member	8	2022	427000
-member	9	2022	404636
-casual	9	2022	296694
-casual	10	2022	208988
-member	10	2022	349693
-casual	11	2022	100747
-member	11	2022	236947
-member	12	2022	136912
-casual	12	2022	44894
-casual	1	2023	40008
-member	1	2023	150293
-casual	2	2023	43016
-member	2	2023	147428
-member	3	2023	196477
-casual	3	2023	62201
-
-
-/* 
-CREATED BY: Jeremy Bosse
-CREATED ON: 6/25/2023
-DESCRIPTION: 
-*/
-
-
-CREATE TABLE bike_share_rides.total_rides_by_month AS
-SELECT
-month,
-COUNT(ride_id) AS total_rides_by_month
-FROM
-`bike_share_rides.full_year`
-GROUP BY
-month;
-
-
-/* 
-CREATED BY: Jeremy Bosse
-CREATED ON: 6/25/2023
-DESCRIPTION: 
-*/
-
-
-SELECT 
-member_casual,
-A.month,
-year,
-COUNT(ride_id) AS total_rides_by_member,
-total_rides_by_month
-FROM
-`bike_share_rides.full_year` AS A 
-LEFT JOIN
-`bike_share_rides.total_rides_by_month` AS B
-ON
-A.month = B.month
-GROUP BY 
-member_casual,
-A.month,
-total_rides_by_month,
-year
-ORDER BY
-year ASC,
-Month ASC;
-
-
-member_casual	month	year	total_rides_by_member	total_rides_by_month
-member	4	2022	244832	371249
-casual	4	2022	126417	371249
-casual	5	2022	280414	634857
-member	5	2022	354443	634857
-member	6	2022	400148	769192
-casual	6	2022	369044	769192
-casual	7	2022	406046	823472
-member	7	2022	417426	823472
-casual	8	2022	358917	785917
-member	8	2022	427000	785917
-casual	9	2022	296694	701330
-member	9	2022	404636	701330
-casual	10	2022	208988	558681
-member	10	2022	349693	558681
-member	11	2022	236947	337694
-casual	11	2022	100747	337694
-member	12	2022	136912	181806
-casual	12	2022	44894	181806
-member	1	2023	150293	190301
-casual	1	2023	40008	190301
-casual	2	2023	43016	190444
-member	2	2023	147428	190444
-member	3	2023	196477	258678
-casual	3	2023	62201	258678
-
-
-/* 
-CREATED BY: Jeremy Bosse
-CREATED ON: 6/25/2023
-DESCRIPTION: 
-*/
-
-
-CREATE TABLE bike_share_rides.total_rides_by_day AS
-SELECT
-day_of_week,
-COUNT(ride_id) AS total_rides_by_day
-FROM
-`bike_share_rides.full_year`
+WHERE
+member_casual = 'casual'
 GROUP BY
 day_of_week;
 
 
 /* 
 CREATED BY: Jeremy Bosse
-CREATED ON: 6/25/2023
-DESCRIPTION: 
+CREATED ON: 6/24/2023
+DESCRIPTION: This statement creates a table with average ride lengths per day within the full year of data, using a CREATE TABLE statement, an aggregate function, and a GROUP BY clause.
 */
 
 
-SELECT 
-A.member_casual,
-A.day_of_week,
-month,
-year,
-COUNT(ride_id) AS total_rides_by_member,
-B.total_rides_by_day
-FROM
-`bike_share_rides.full_year` AS A
-LEFT JOIN
-`bike_share_rides.total_rides_by_day` AS B
-ON
-A.day_of_week = B.day_of_week
-GROUP BY 
-A.member_casual,
-A.day_of_week,
-B.total_rides_by_day,
-month,
-year
-ORDER BY
-year ASC,
-Month ASC,
-A.day_of_week ASC;
-
-
-member_casual	day_of_week	month	year	total_rides_by_member	total_rides_by_day
-casual	1	4	2022	19388	787408
-member	1	4	2022	25457	787408
-member	2	4	2022	33931	760259
-casual	2	4	2022	12063	760259
-casual	3	4	2022	14550	815706
-member	3	4	2022	40432	815706
-casual	4	4	2022	10457	822887
-member	4	4	2022	32387	822887
-member	5	4	2022	38595	862895
-casual	5	4	2022	16779	862895
-casual	6	4	2022	16850	830863
-member	6	4	2022	35963	830863
-member	7	4	2022	38067	923603
-casual	7	4	2022	36330	923603
-casual	1	5	2022	55321	787408
-member	1	5	2022	48774	787408
-member	2	5	2022	62061	760259
-casual	2	5	2022	47468	760259
-casual	3	5	2022	35067	815706
-member	3	5	2022	59543	815706
-member	4	5	2022	45097	822887
-casual	4	5	2022	24066	822887
-casual	5	5	2022	33399	862895
-member	5	5	2022	51663	862895
-casual	6	5	2022	32238	830863
-member	6	5	2022	42310	830863
-casual	7	5	2022	52855	923603
-member	7	5	2022	44995	923603
-member	1	6	2022	49062	787408
-casual	1	6	2022	65851	787408
-member	2	6	2022	46791	760259
-casual	2	6	2022	37004	760259
-casual	3	6	2022	38819	815706
-member	3	6	2022	54982	815706
-casual	4	6	2022	48387	822887
-member	4	6	2022	68797	822887
-member	5	6	2022	73500	862895
-casual	5	6	2022	57978	862895
-casual	6	6	2022	55868	830863
-member	6	6	2022	57322	830863
-casual	7	6	2022	65137	923603
-member	7	6	2022	49694	923603
-casual	1	7	2022	78251	787408
-member	1	7	2022	58780	787408
-casual	2	7	2022	43971	760259
-member	2	7	2022	49850	760259
-member	3	7	2022	57520	815706
-casual	3	7	2022	41447	815706
-member	4	7	2022	59611	822887
-casual	4	7	2022	42850	822887
-casual	5	7	2022	47793	862895
-member	5	7	2022	61155	862895
-casual	6	7	2022	56504	830863
-member	6	7	2022	61643	830863
-casual	7	7	2022	95230	923603
-member	7	7	2022	68867	923603
-casual	1	8	2022	48154	787408
-member	1	8	2022	42972	787408
-casual	2	8	2022	42361	760259
-member	2	8	2022	62602	760259
-member	3	8	2022	76718	815706
-casual	3	8	2022	51508	815706
-casual	4	8	2022	51488	822887
-member	4	8	2022	76616	822887
-member	5	8	2022	57508	862895
-casual	5	8	2022	42351	862895
-member	6	8	2022	58703	830863
-casual	6	8	2022	56867	830863
-member	7	8	2022	51881	923603
-casual	7	8	2022	66188	923603
-member	1	9	2022	35739	787408
-casual	1	9	2022	36254	787408
-member	2	9	2022	47422	760259
-casual	2	9	2022	31051	760259
-casual	3	9	2022	29586	815706
-member	3	9	2022	57033	815706
-member	4	9	2022	61505	822887
-casual	4	9	2022	33504	822887
-member	5	9	2022	76589	862895
-casual	5	9	2022	45838	862895
-member	6	9	2022	72329	830863
-casual	6	9	2022	56385	830863
-casual	7	9	2022	64076	923603
-member	7	9	2022	54019	923603
-casual	1	10	2022	44681	787408
-member	1	10	2022	50366	787408
-casual	2	10	2022	27234	760259
-member	2	10	2022	58287	760259
-casual	3	10	2022	15694	815706
-member	3	10	2022	39748	815706
-casual	4	10	2022	20593	822887
-member	4	10	2022	48893	822887
-casual	5	10	2022	22585	862895
-member	5	10	2022	49238	862895
-casual	6	10	2022	25979	830863
-member	6	10	2022	45024	830863
-casual	7	10	2022	52222	923603
-member	7	10	2022	58137	923603
-casual	1	11	2022	12472	787408
-member	1	11	2022	21193	787408
-member	2	11	2022	32304	760259
-casual	2	11	2022	10300	760259
-casual	3	11	2022	15808	815706
-member	3	11	2022	46114	815706
-casual	4	11	2022	17779	822887
-member	4	11	2022	47448	822887
-casual	5	11	2022	17981	862895
-member	5	11	2022	39125	862895
-casual	6	11	2022	14538	830863
-member	6	11	2022	30323	830863
-member	7	11	2022	20440	923603
-casual	7	11	2022	11869	923603
-member	1	12	2022	12117	787408
-casual	1	12	2022	5343	787408
-member	2	12	2022	18889	760259
-casual	2	12	2022	4936	760259
-member	3	12	2022	22108	815706
-casual	3	12	2022	5917	815706
-member	4	12	2022	20162	822887
-casual	4	12	2022	5678	822887
-casual	5	12	2022	8177	862895
-member	5	12	2022	27095	862895
-casual	6	12	2022	7156	830863
-member	6	12	2022	19662	830863
-casual	7	12	2022	7687	923603
-member	7	12	2022	16879	923603
-member	1	1	2023	15989	787408
-casual	1	1	2023	6377	787408
-casual	2	1	2023	5698	760259
-member	2	1	2023	22649	760259
-member	3	1	2023	29377	815706
-casual	3	1	2023	6904	815706
-member	4	1	2023	24743	822887
-casual	4	1	2023	5978	822887
-member	5	1	2023	22645	862895
-casual	5	1	2023	5022	862895
-member	6	1	2023	20109	830863
-casual	6	1	2023	5012	830863
-member	7	1	2023	14781	923603
-casual	7	1	2023	5017	923603
-member	1	2	2023	20337	787408
-casual	1	2	2023	9955	787408
-member	2	2	2023	24391	760259
-casual	2	2	2023	6788	760259
-casual	3	2	2023	6853	815706
-member	3	2	2023	28631	815706
-casual	4	2	2023	4577	822887
-member	4	2	2023	21215	822887
-casual	5	2	2023	3712	862895
-member	5	2	2023	18140	862895
-member	6	2	2023	17311	830863
-casual	6	2	2023	4250	830863
-casual	7	2	2023	6881	923603
-member	7	2	2023	17403	923603
-member	1	3	2023	17189	787408
-casual	1	3	2023	7386	787408
-casual	2	3	2023	6818	760259
-member	2	3	2023	25390	760259
-casual	3	3	2023	9219	815706
-member	3	3	2023	32128	815706
-member	4	3	2023	39751	822887
-casual	4	3	2023	11305	822887
-member	5	3	2023	35902	862895
-casual	5	3	2023	10125	862895
-casual	6	3	2023	9362	830863
-member	6	3	2023	29155	830863
-member	7	3	2023	16962	923603
-casual	7	3	2023	7986	923603
-
-
-/* 
-CREATED BY: Jeremy Bosse
-CREATED ON: 6/25/2023
-DESCRIPTION: 
-*/
-
-
+CREATE TABLE `bike_share_rides.daily_member_avg_fy`  
+AS
 SELECT
-member_casual,
-month,
-year,
-MAX(ride_length) AS max_ride_length_by_member
-FROM
-`bike_share_rides.full_year` 
-GROUP BY 
-member_casual,
-month,
-year
-ORDER BY
-year ASC,
-month ASC;
-
-
-member_casual	month	year	max_ride_length_by_member
-member	4	2022	0-0 0 23:41:12
-casual	4	2022	0-0 0 23:58:35
-casual	5	2022	0-0 0 23:58:53
-member	5	2022	0-0 0 23:13:47
-casual	6	2022	0-0 0 23:59:18
-member	6	2022	0-0 0 22:3:32
-casual	7	2022	0-0 0 23:59:22
-member	7	2022	0-0 0 22:41:52
-casual	8	2022	0-0 0 23:59:2
-member	8	2022	0-0 0 23:38:56
-casual	9	2022	0-0 0 23:59:34
-member	9	2022	0-0 0 23:35:27
-casual	10	2022	0-0 0 23:53:52
-member	10	2022	0-0 0 23:56:20
-member	11	2022	0-0 0 23:59:50
-casual	11	2022	0-0 0 23:59:56
-casual	12	2022	0-0 0 23:17:35
-member	12	2022	0-0 0 23:26:21
-member	1	2023	0-0 0 23:42:34
-casual	1	2023	0-0 0 22:31:13
-casual	2	2023	0-0 0 23:58:7
-member	2	2023	0-0 0 23:43:47
-casual	3	2023	0-0 0 23:47:34
-member	3	2023	0-0 0 23:42:22
-
-
-/* 
-CREATED BY: Jeremy Bosse
-CREATED ON: 6/25/2023
-DESCRIPTION: 
-*/
-
-
-CREATE TABLE bike_share_rides.max_ride_length_by_month AS
-SELECT
-month,
-MAX(ride_length) AS max_ride_length_by_month
-FROM
-`bike_share_rides.full_year` 
-GROUP BY 
-month;
-
-
-/* 
-CREATED BY: Jeremy Bosse
-CREATED ON: 6/25/2023
-DESCRIPTION: 
-*/
-
-
-SELECT
-member_casual,
-A.month,
-year,
-MAX(ride_length) AS max_ride_length_by_member,
-B.max_ride_length_by_month
-FROM
-`bike_share_rides.full_year` AS A
-LEFT JOIN
-`bike_share_rides.max_ride_length_by_month` AS B
-ON
-A.month = B.month
-GROUP BY 
-member_casual,
-B.max_ride_length_by_month,
-A.month,
-year
-ORDER BY
-year ASC,
-month ASC;
-
-
-member_casual	month	year	max_ride_length_by_member	max_ride_length_by_month
-casual	4	2022	0-0 0 23:58:35	0-0 0 23:58:35
-member	4	2022	0-0 0 23:41:12	0-0 0 23:58:35
-casual	5	2022	0-0 0 23:58:53	0-0 0 23:58:53
-member	5	2022	0-0 0 23:13:47	0-0 0 23:58:53
-member	6	2022	0-0 0 22:3:32	0-0 0 23:59:18
-casual	6	2022	0-0 0 23:59:18	0-0 0 23:59:18
-casual	7	2022	0-0 0 23:59:22	0-0 0 23:59:22
-member	7	2022	0-0 0 22:41:52	0-0 0 23:59:22
-member	8	2022	0-0 0 23:38:56	0-0 0 23:59:2
-casual	8	2022	0-0 0 23:59:2	0-0 0 23:59:2
-member	9	2022	0-0 0 23:35:27	0-0 0 23:59:34
-casual	9	2022	0-0 0 23:59:34	0-0 0 23:59:34
-casual	10	2022	0-0 0 23:53:52	0-0 0 23:56:20
-member	10	2022	0-0 0 23:56:20	0-0 0 23:56:20
-member	11	2022	0-0 0 23:59:50	0-0 0 23:59:56
-casual	11	2022	0-0 0 23:59:56	0-0 0 23:59:56
-casual	12	2022	0-0 0 23:17:35	0-0 0 23:26:21
-member	12	2022	0-0 0 23:26:21	0-0 0 23:26:21
-casual	1	2023	0-0 0 22:31:13	0-0 0 23:42:34
-member	1	2023	0-0 0 23:42:34	0-0 0 23:42:34
-member	2	2023	0-0 0 23:43:47	0-0 0 23:58:7
-casual	2	2023	0-0 0 23:58:7	0-0 0 23:58:7
-member	3	2023	0-0 0 23:42:22	0-0 0 23:47:34
-casual	3	2023	0-0 0 23:47:34	0-0 0 23:47:34
-
-
-/* 
-CREATED BY: Jeremy Bosse
-CREATED ON: 6/26/2023
-DESCRIPTION: 
-*/
-
-
-SELECT
-month,
-MIN(ride_length) AS min_ride_length_by_month
-FROM
-`bike_share_rides.full_year` 
-GROUP BY 
-month;
-
-
-month	min_ride_length_by_month
-4	0-0 0 0:0:0
-10	0-0 0 0:0:0
-5	0-0 0 0:0:0
-8	0-0 0 0:0:0
-12	0-0 0 0:0:0
-1	0-0 0 0:0:0
-3	0-0 0 0:0:0
-9	0-0 0 0:0:0
-6	0-0 0 0:0:0
-11	0-0 0 0:0:0
-7	0-0 0 0:0:0
-2	0-0 0 0:0:0
-
-
-/* 
-CREATED BY: Jeremy Bosse
-CREATED ON: 6/26/2023
-DESCRIPTION: 
-*/
-
-
-CREATE TABLE bike_share_rides.total_ride_length_by_month AS
-SELECT
-month,
-SUM(ride_length) AS total_ride_length_by_month
-FROM
-`bike_share_rides.full_year` 
-GROUP BY 
-month;
-
-
-/* 
-CREATED BY: Jeremy Bosse
-CREATED ON: 6/26/2023
-DESCRIPTION: 
-*/
-
-
-SELECT
-member_casual,
-A.month,
-year,
-SUM(ride_length) AS total_ride_length_by_member,
-total_ride_length_by_month
-FROM
-`bike_share_rides.full_year` AS A
-LEFT JOIN
-`bike_share_rides.total_ride_length_by_month` AS B
-ON
-A.month = B.month
-GROUP BY 
-member_casual,
-total_ride_length_by_month,
-month,
-year
-ORDER BY
-year ASC,
-month ASC;
-
-
-member_casual	month	year	total_ride_length_by_member	total_ride_length_by_month
-casual	4	2022	0-0 0 49959:20:50	0-0 0 96230:29:7
-member	4	2022	0-0 0 46271:8:17	0-0 0 96230:29:7
-casual	5	2022	0-0 0 120943:42:22	0-0 0 198081:47:25
-member	5	2022	0-0 0 77138:5:3	0-0 0 198081:47:25
-member	6	2022	0-0 0 91058:59:21	0-0 0 238263:7:54
-casual	6	2022	0-0 0 147204:8:33	0-0 0 238263:7:54
-casual	7	2022	0-0 0 159478:38:5	0-0 0 252928:36:38
-member	7	2022	0-0 0 93449:58:33	0-0 0 252928:36:38
-casual	8	2022	0-0 0 132014:50:41	0-0 0 225131:29:47
-member	8	2022	0-0 0 93116:39:6	0-0 0 225131:29:47
-member	9	2022	0-0 0 85204:47:32	0-0 0 186990:5:53
-casual	9	2022	0-0 0 101785:18:21	0-0 0 186990:5:53
-casual	10	2022	0-0 0 66087:21:58	0-0 0 133385:35:38
-member	10	2022	0-0 0 67298:13:40	0-0 0 133385:35:38
-member	11	2022	0-0 0 42905:22:9	0-0 0 69887:18:38
-casual	11	2022	0-0 0 26981:56:29	0-0 0 69887:18:38
-member	12	2022	0-0 0 23608:15:19	0-0 0 34094:3:1
-casual	12	2022	0-0 0 10485:47:42	0-0 0 34094:3:1
-casual	1	2023	0-0 0 9519:36:55	0-0 0 34754:37:33
-member	1	2023	0-0 0 25235:0:38	0-0 0 34754:37:33
-member	2	2023	0-0 0 25726:37:26	0-0 0 37650:6:43
-casual	2	2023	0-0 0 11923:29:17	0-0 0 37650:6:43
-casual	3	2023	0-0 0 16605:44:57	0-0 0 50008:1:15
-member	3	2023	0-0 0 33402:16:18	0-0 0 50008:1:15
-
-
-/* 
-CREATED BY: Jeremy Bosse
-CREATED ON: 6/28/2023
-DESCRIPTION: 
-*/
-
-
-SELECT
-member_casual,
-COUNT(ride_id) AS total_rides_by_member,
-(SELECT
-COUNT(ride_id)
-FROM
-`bike_share_rides.full_year`) AS Total_rides
-FROM
-`bike_share_rides.full_year` 
-GROUP BY 
-member_casual;
-
-
-member_casual	total_rides_by_member	Total_rides
-casual	2337386	5803621
-member	3466235	5803621
-
-
-/* 
-CREATED BY: Jeremy Bosse
-CREATED ON: 6/28/2023
-DESCRIPTION: 
-*/
-
-
-SELECT
-COUNT(distinct_rides) AS distinct_ride_count,
-FROM
-(SELECT 
-DISTINCT ride_id AS distinct_rides,
-rideable_type,
-started_at,
-ended_at,
-start_station_name,
-start_station_id,
-end_station_name,
-end_station_id,
-start_lat,
-start_lng,
-end_lat,
-end_lng,
-member_casual,
-ride_length,
-month,
 day_of_week,
-year
+AVG(ride_length) AS daily_member_avg_fy
 FROM
-`bike_share_rides.full_year`) AS Full_Year
+`bike_share_rides.full_year`
+WHERE
+member_casual = 'member'
+GROUP BY
+day_of_week;
 
 
-distinct_ride_count
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/24/2023
+DESCRIPTION: This statement creates a table of average ride lengths by day, by month, and by membership type, using an aggregate function, a LEFT JOIN clause, a GROUP BY statement, and an ORDER BY key word.
+*/
+
+
+
+SELECT
+F.day_of_week,
+C.daily_casual_avg_fy AS casual,
+M.daily_member_avg_fy AS member,
+AVG(ride_length) AS daily_member_casual_avg
+FROM
+`bike_share_rides.full_year` AS F
+LEFT JOIN
+`bike_share_rides.daily_casual_avg_fy` AS C
+ON
+F.day_of_week = C.day_of_week
+LEFT JOIN
+`bike_share_rides.daily_member_avg_fy` AS M
+ON
+C.day_of_week = M.day_of_week
+GROUP BY
+day_of_week,
+C.daily_casual_avg_fy,
+M.daily_member_avg_fy
+ORDER BY
+day_of_week;
+
+day_of_week	casual	member	daily_member_casual_avg
+1	0-0 0 0:25:11.584917046	0-0 0 0:13:29.810395125	0-0 0 0:19:16.891142838
+2	0-0 0 0:22:6.529036025	0-0 0 0:11:42.823648742	0-0 0 0:15:28.997341695
+3	0-0 0 0:19:36.026296006	0-0 0 0:11:36.894500435	0-0 0 0:14:16.293785996
+4	0-0 0 0:18:34.750207834	0-0 0 0:11:36.437039681	0-0 0 0:13:57.077683813
+5	0-0 0 0:19:33.198922178	0-0 0 0:11:48.287998838	0-0 0 0:14:36.247404377
+6	0-0 0 0:20:42.724356248	0-0 0 0:12:0.435235804	0-0 0 0:15:34.797038741
+7	0-0 0 0:24:43.264173513	0-0 0 0:13:38.372609344	0-0 0 0:19:17.784396542
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/24/2023
+DESCRIPTION: This statement creates a table with average ride lengths per day within the full year of data, using a CREATE TABLE statement, an aggregate function, and a GROUP BY clause.
+*/
+
+
+SELECT
+day_of_week,
+month,
+year,
+AVG(ride_length) AS total_avg
+FROM
+`bike_share_rides.full_year`  
+GROUP BY
+day_of_week,
+month,
+year
+ORDER BY
+year ASC,
+month ASC,
+day_of_week ASC;
+
+
+day_of_week	month	year	total_avg
+1	4	2022	0-0 0 0:18:18.920258668
+2	4	2022	0-0 0 0:13:21.383680480
+3	4	2022	0-0 0 0:13:16.809137535
+4	4	2022	0-0 0 0:12:13.984291849
+5	4	2022	0-0 0 0:14:25.746523639
+6	4	2022	0-0 0 0:13:50.560316588
+7	4	2022	0-0 0 0:20:53.123297982
+1	5	2022	0-0 0 0:21:51.258609923
+2	5	2022	0-0 0 0:19:27.126468789
+3	5	2022	0-0 0 0:16:25.031983934
+4	5	2022	0-0 0 0:15:25.591992828
+5	5	2022	0-0 0 0:17:4.626742846
+6	5	2022	0-0 0 0:17:5.143504855
+7	5	2022	0-0 0 0:21:47.869105774
+1	6	2022	0-0 0 0:22:16.749044929
+2	6	2022	0-0 0 0:17:55.320508383
+3	6	2022	0-0 0 0:17:0.146853445
+4	6	2022	0-0 0 0:16:8.663093937
+5	6	2022	0-0 0 0:17:13.873142274
+6	6	2022	0-0 0 0:18:27.475041964
+7	6	2022	0-0 0 0:20:50.025385131
+1	7	2022	0-0 0 0:21:32.188526683
+2	7	2022	0-0 0 0:18:36.388420502
+3	7	2022	0-0 0 0:16:10.001808683
+4	7	2022	0-0 0 0:15:49.958667200
+5	7	2022	0-0 0 0:15:59.523846238
+6	7	2022	0-0 0 0:16:47.559083176
+7	7	2022	0-0 0 0:21:30.835682553
+1	8	2022	0-0 0 0:19:40.696969031
+2	8	2022	0-0 0 0:15:50.244238445
+3	8	2022	0-0 0 0:16:7.422215463
+4	8	2022	0-0 0 0:15:28.860894273
+5	8	2022	0-0 0 0:15:57.926085780
+6	8	2022	0-0 0 0:17:47.049606299
+7	8	2022	0-0 0 0:19:55.273678950
+1	9	2022	0-0 0 0:18:28.367271818
+2	9	2022	0-0 0 0:15:54.101041122
+3	9	2022	0-0 0 0:13:52.206917650
+4	9	2022	0-0 0 0:14:6.181288088
+5	9	2022	0-0 0 0:14:13.319570029
+6	9	2022	0-0 0 0:15:47.558936867
+7	9	2022	0-0 0 0:19:41.974444303
+1	10	2022	0-0 0 0:17:24.498732206
+2	10	2022	0-0 0 0:13:13.638100583
+3	10	2022	0-0 0 0:11:48.952815554
+4	10	2022	0-0 0 0:12:2.709106870
+5	10	2022	0-0 0 0:12:5.965011208
+6	10	2022	0-0 0 0:13:35.262355111
+7	10	2022	0-0 0 0:17:8.352540345
+1	11	2022	0-0 0 0:14:28.053735333
+2	11	2022	0-0 0 0:11:10.862336869
+3	11	2022	0-0 0 0:11:27.187316301
+4	11	2022	0-0 0 0:11:49.160822972
+5	11	2022	0-0 0 0:13:11.356705074
+6	11	2022	0-0 0 0:12:31.984842067
+7	11	2022	0-0 0 0:13:26.444520102
+1	12	2022	0-0 0 0:12:4.755040091
+2	12	2022	0-0 0 0:10:42.815613850
+3	12	2022	0-0 0 0:10:24.517537912
+4	12	2022	0-0 0 0:10:55.187074303
+5	12	2022	0-0 0 0:11:2.770526196
+6	12	2022	0-0 0 0:11:52.396039973
+7	12	2022	0-0 0 0:12:6.811813074
+1	1	2023	0-0 0 0:13:27.203433783
+2	1	2023	0-0 0 0:10:38.908561752
+3	1	2023	0-0 0 0:10:29.392271436
+4	1	2023	0-0 0 0:10:36.959734383
+5	1	2023	0-0 0 0:9:55.755448729
+6	1	2023	0-0 0 0:10:22.799132200
+7	1	2023	0-0 0 0:12:8.380442468
+1	2	2023	0-0 0 0:15:25.659183942
+2	2	2023	0-0 0 0:11:13.245710253
+3	2	2023	0-0 0 0:10:38.624873182
+4	2	2023	0-0 0 0:10:0.005893300
+5	2	2023	0-0 0 0:10:23.782125205
+6	2	2023	0-0 0 0:10:59.039144752
+7	2	2023	0-0 0 0:14:5.513918629
+1	3	2023	0-0 0 0:13:27.914059003
+2	3	2023	0-0 0 0:10:59.936754843
+3	3	2023	0-0 0 0:11:36.581178803
+4	3	2023	0-0 0 0:11:19.207399717
+5	3	2023	0-0 0 0:10:42.950594216
+6	3	2023	0-0 0 0:11:18.726354596
+7	3	2023	0-0 0 0:13:9.818783068
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/24/2023
+DESCRIPTION: This statement creates a table with average ride lengths per day within the full year of data, using a CREATE TABLE statement, an aggregate function, and a GROUP BY clause.
+*/
+
+
+CREATE TABLE bike_share_rides.daily_member_rider_avg AS
+SELECT
+day_of_week,
+month,
+year,
+AVG(ride_length) AS daily_member_avg
+FROM
+`bike_share_rides.full_year`
+WHERE
+member_casual = 'member'
+GROUP BY
+day_of_week,
+month,
+year;
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/24/2023
+DESCRIPTION: This statement creates a table with average ride lengths per day within the full year of data, using a CREATE TABLE statement, an aggregate function, and a GROUP BY clause.
+*/
+
+
+CREATE TABLE bike_share_rides.daily_casual_rider_avg AS
+SELECT
+day_of_week,
+month,
+year,
+AVG(ride_length) AS daily_casual_avg
+FROM
+`bike_share_rides.full_year`
+WHERE
+member_casual = 'casual'
+GROUP BY
+day_of_week,
+month,
+year;
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/24/2023
+DESCRIPTION: This statement creates a table of average ride lengths by day, by month, and by membership type, using an aggregate function, a LEFT JOIN clause, a GROUP BY statement, and an ORDER BY key word.
+*/
+
+
+SELECT
+A.day_of_week,
+A.month,
+A.year,
+A.daily_casual_avg AS casual,
+B.daily_member_avg AS member,
+AVG(ride_length) AS total_avg
+FROM
+`bike_share_rides.full_year` AS F
+LEFT JOIN
+`bike_share_rides.daily_casual_rider_avg` AS A 
+ON
+F.day_of_week = A.day_of_week
+AND
+F.month = A.month 
+AND
+F.year = A.year
+LEFT JOIN
+`bike_share_rides.daily_member_rider_avg` AS B
+ON 
+A.day_of_week = B.day_of_week
+AND
+A.month = B.month 
+AND
+A.year = B.year
+GROUP BY
+A.day_of_week,
+A.month,
+A.year,
+A.daily_casual_avg,
+B.daily_member_avg
+ORDER BY
+year ASC,
+month ASC,
+day_of_week ASC;
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/25/2023
+DESCRIPTION: 
+*/
+
+
+day_of_week	month	year	casual	member	total_avg
+1	4	2022	0-0 0 0:26:7.506034660	0-0 0 0:12:22.046274109	0-0 0 0:18:18.920258668
+2	4	2022	0-0 0 0:21:7.522175246	0-0 0 0:10:35.664171406	0-0 0 0:13:21.383680480
+3	4	2022	0-0 0 0:20:28.754639175	0-0 0 0:10:41.367728531	0-0 0 0:13:16.809137535
+4	4	2022	0-0 0 0:17:53.954002103	0-0 0 0:10:24.216074350	0-0 0 0:12:13.984291849
+5	4	2022	0-0 0 0:21:50.053042493	0-0 0 0:11:12.586293561	0-0 0 0:14:25.746523639
+6	4	2022	0-0 0 0:20:14.081602373	0-0 0 0:10:50.866362650	0-0 0 0:13:50.560316588
+7	4	2022	0-0 0 0:28:43.791659785	0-0 0 0:13:23.931568024	0-0 0 0:20:53.123297982
+1	5	2022	0-0 0 0:28:40.175846423	0-0 0 0:14:7.451859597	0-0 0 0:21:51.258609923
+2	5	2022	0-0 0 0:27:42.514072638	0-0 0 0:13:8.224118206	0-0 0 0:19:27.126468789
+3	5	2022	0-0 0 0:23:15.117631961	0-0 0 0:12:23.517894630	0-0 0 0:16:25.031983934
+4	5	2022	0-0 0 0:21:39.856062494	0-0 0 0:12:5.866088653	0-0 0 0:15:25.591992828
+5	5	2022	0-0 0 0:23:39.337375370	0-0 0 0:12:49.454948415	0-0 0 0:17:4.626742846
+6	5	2022	0-0 0 0:23:13.312860599	0-0 0 0:12:24.617773575	0-0 0 0:17:5.143504855
+7	5	2022	0-0 0 0:27:59.922069813	0-0 0 0:14:30.823669296	0-0 0 0:21:47.869105774
+1	6	2022	0-0 0 0:27:20.765986849	0-0 0 0:15:28.697607109	0-0 0 0:22:16.749044929
+2	6	2022	0-0 0 0:24:16.676062047	0-0 0 0:12:53.730867047	0-0 0 0:17:55.320508383
+3	6	2022	0-0 0 0:22:25.542363275	0-0 0 0:13:10.407515186	0-0 0 0:17:0.146853445
+4	6	2022	0-0 0 0:20:56.470498274	0-0 0 0:12:46.239487186	0-0 0 0:16:8.663093937
+5	6	2022	0-0 0 0:22:13.385146089	0-0 0 0:13:17.613183673	0-0 0 0:17:13.873142274
+6	6	2022	0-0 0 0:23:26.392729290	0-0 0 0:13:36.139545026	0-0 0 0:18:27.475041964
+7	6	2022	0-0 0 0:25:21.058553510	0-0 0 0:14:54.765444520	0-0 0 0:20:50.025385131
+1	7	2022	0-0 0 0:26:36.562868206	0-0 0 0:14:46.989537257	0-0 0 0:21:32.188526683
+2	7	2022	0-0 0 0:24:43.395942780	0-0 0 0:13:12.663490471	0-0 0 0:18:36.388420502
+3	7	2022	0-0 0 0:21:6.141047602	0-0 0 0:12:36.613716968	0-0 0 0:16:10.001808683
+4	7	2022	0-0 0 0:20:16.078786464	0-0 0 0:12:38.664323698	0-0 0 0:15:49.958667200
+5	7	2022	0-0 0 0:20:7.658380934	0-0 0 0:12:45.605216253	0-0 0 0:15:59.523846238
+6	7	2022	0-0 0 0:21:14.482036669	0-0 0 0:12:42.888730269	0-0 0 0:16:47.559083176
+7	7	2022	0-0 0 0:26:11.420424236	0-0 0 0:15:2.840199224	0-0 0 0:21:30.835682553
+1	8	2022	0-0 0 0:24:41.217074386	0-0 0 0:14:3.937098575	0-0 0 0:19:40.696969031
+2	8	2022	0-0 0 0:21:2.465664172	0-0 0 0:12:18.972844318	0-0 0 0:15:50.244238445
+3	8	2022	0-0 0 0:21:6.346781082	0-0 0 0:12:46.726074715	0-0 0 0:16:7.422215463
+4	8	2022	0-0 0 0:19:31.013750776	0-0 0 0:12:46.127701785	0-0 0 0:15:28.860894273
+5	8	2022	0-0 0 0:20:18.667186134	0-0 0 0:12:45.906778187	0-0 0 0:15:57.926085780
+6	8	2022	0-0 0 0:22:27.137390753	0-0 0 0:13:15.721871113	0-0 0 0:17:47.049606299
+7	8	2022	0-0 0 0:24:21.111137970	0-0 0 0:14:16.127368400	0-0 0 0:19:55.273678950
+1	9	2022	0-0 0 0:23:3.586942130	0-0 0 0:13:49.181678278	0-0 0 0:18:28.367271818
+2	9	2022	0-0 0 0:21:23.626710894	0-0 0 0:12:18.334064358	0-0 0 0:15:54.101041122
+3	9	2022	0-0 0 0:17:39.879706617	0-0 0 0:11:54.101134430	0-0 0 0:13:52.206917650
+4	9	2022	0-0 0 0:17:53.523131566	0-0 0 0:12:2.339956101	0-0 0 0:14:6.181288088
+5	9	2022	0-0 0 0:17:35.725424320	0-0 0 0:12:12.181031218	0-0 0 0:14:13.319570029
+6	9	2022	0-0 0 0:19:55.524217433	0-0 0 0:12:34.254420771	0-0 0 0:15:47.558936867
+7	9	2022	0-0 0 0:24:15.798614145	0-0 0 0:14:17.170995390	0-0 0 0:19:41.974444303
+1	10	2022	0-0 0 0:22:31.524048253	0-0 0 0:12:52.128519239	0-0 0 0:17:24.498732206
+2	10	2022	0-0 0 0:18:3.137328339	0-0 0 0:10:58.372570212	0-0 0 0:13:13.638100583
+3	10	2022	0-0 0 0:14:42.653625589	0-0 0 0:10:40.369226124	0-0 0 0:11:48.952815554
+4	10	2022	0-0 0 0:14:52.770310299	0-0 0 0:10:51.081872660	0-0 0 0:12:2.709106870
+5	10	2022	0-0 0 0:15:10.439672348	0-0 0 0:10:41.348247288	0-0 0 0:12:5.965011208
+6	10	2022	0-0 0 0:17:24.865699218	0-0 0 0:11:22.780450426	0-0 0 0:13:35.262355111
+7	10	2022	0-0 0 0:21:43.758550036	0-0 0 0:13:0.967008961	0-0 0 0:17:8.352540345
+1	11	2022	0-0 0 0:19:26.882937780	0-0 0 0:11:32.193884773	0-0 0 0:14:28.053735333
+2	11	2022	0-0 0 0:13:48.251650485	0-0 0 0:10:20.679389549	0-0 0 0:11:10.862336869
+3	11	2022	0-0 0 0:13:52.457742914	0-0 0 0:10:37.388233508	0-0 0 0:11:27.187316301
+4	11	2022	0-0 0 0:14:42.000449969	0-0 0 0:10:44.396960883	0-0 0 0:11:49.160822972
+5	11	2022	0-0 0 0:17:21.849785885	0-0 0 0:11:16.235527156	0-0 0 0:13:11.356705074
+6	11	2022	0-0 0 0:15:53.812697757	0-0 0 0:10:55.220888434	0-0 0 0:12:31.984842067
+7	11	2022	0-0 0 0:17:42.433650686	0-0 0 0:10:57.797994129	0-0 0 0:13:26.444520102
+1	12	2022	0-0 0 0:15:8.307505146	0-0 0 0:10:43.817446562	0-0 0 0:12:4.755040091
+2	12	2022	0-0 0 0:12:27.059562398	0-0 0 0:10:15.574990735	0-0 0 0:10:42.815613850
+3	12	2022	0-0 0 0:11:40.399019773	0-0 0 0:10:4.208567034	0-0 0 0:10:24.517537912
+4	12	2022	0-0 0 0:13:19.144240929	0-0 0 0:10:14.646017260	0-0 0 0:10:55.187074303
+5	12	2022	0-0 0 0:14:3.459092576	0-0 0 0:10:8.240524081	0-0 0 0:11:2.770526196
+6	12	2022	0-0 0 0:15:34.575321408	0-0 0 0:10:31.533719865	0-0 0 0:11:52.396039973
+7	12	2022	0-0 0 0:15:3.044230519	0-0 0 0:10:46.552402393	0-0 0 0:12:6.811813074
+1	1	2023	0-0 0 0:18:49.381527363	0-0 0 0:11:18.706986052	0-0 0 0:13:27.203433783
+2	1	2023	0-0 0 0:13:59.930677430	0-0 0 0:9:48.335732261	0-0 0 0:10:38.908561752
+3	1	2023	0-0 0 0:12:45.724073001	0-0 0 0:9:57.352418558	0-0 0 0:10:29.392271436
+4	1	2023	0-0 0 0:13:26.249414519	0-0 0 0:9:56.058723679	0-0 0 0:10:36.959734383
+5	1	2023	0-0 0 0:11:47.576065312	0-0 0 0:9:30.956899977	0-0 0 0:9:55.755448729
+6	1	2023	0-0 0 0:11:53.591779728	0-0 0 0:10:0.169824456	0-0 0 0:10:22.799132200
+7	1	2023	0-0 0 0:16:45.847518437	0-0 0 0:10:34.201948447	0-0 0 0:12:8.380442468
+1	2	2023	0-0 0 0:21:42.507483676	0-0 0 0:12:21.191227811	0-0 0 0:15:25.659183942
+2	2	2023	0-0 0 0:15:14.087212728	0-0 0 0:10:6.219671190	0-0 0 0:11:13.245710253
+3	2	2023	0-0 0 0:13:46.127097621	0-0 0 0:9:53.745101463	0-0 0 0:10:38.624873182
+4	2	2023	0-0 0 0:11:36.522176097	0-0 0 0:9:39.183125147	0-0 0 0:10:0.005893300
+5	2	2023	0-0 0 0:13:29.276670258	0-0 0 0:9:45.824255788	0-0 0 0:10:23.782125205
+6	2	2023	0-0 0 0:14:45.968470588	0-0 0 0:10:3.326035468	0-0 0 0:10:59.039144752
+7	2	2023	0-0 0 0:19:42.159424502	0-0 0 0:11:52.407113716	0-0 0 0:14:5.513918629
+1	3	2023	0-0 0 0:19:35.217844570	0-0 0 0:10:50.086043399	0-0 0 0:13:27.914059003
+2	3	2023	0-0 0 0:15:28.904517453	0-0 0 0:9:47.710594722	0-0 0 0:10:59.936754843
+3	3	2023	0-0 0 0:16:9.797483458	0-0 0 0:10:18.182862300	0-0 0 0:11:36.581178803
+4	3	2023	0-0 0 0:14:55.079433878	0-0 0 0:10:17.814394606	0-0 0 0:11:19.207399717
+5	3	2023	0-0 0 0:14:6.245728395	0-0 0 0:9:45.617765027	0-0 0 0:10:42.950594216
+6	3	2023	0-0 0 0:15:35.859218115	0-0 0 0:9:56.158086091	0-0 0 0:11:18.726354596
+7	3	2023	0-0 0 0:17:29.095792637	0-0 0 0:11:7.746727980	0-0 0 0:13:9.818783068
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/25/2023
+DESCRIPTION: 
+*/
+
+SELECT
+(SELECT
+COUNT(ride_id) AS casual_count
+FROM
+`bike_share_rides.full_year`
+WHERE
+member_casual = 'casual') AS casual_rides_total,
+(SELECT
+COUNT(ride_id) AS member_max
+FROM
+`bike_share_rides.full_year`
+WHERE
+member_casual = 'member') AS member_rides_total,
+(SELECT
+COUNT(ride_id) AS total_rides
+FROM
+`bike_share_rides.full_year`) AS total_rides
+
+
+casual_rides_total	member_rides_total	total_rides
+2337386	3466235	5803621
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/25/2023
+DESCRIPTION: 
+*/
+
+SELECT
+(SELECT
+COUNT(DISTINCT ride_id) AS casual_count
+FROM
+`bike_share_rides.full_year`
+WHERE
+member_casual = 'casual') AS casual_rides_total,
+(SELECT
+COUNT(DISTINCT ride_id) AS member_max
+FROM
+`bike_share_rides.full_year`
+WHERE
+member_casual = 'member') AS member_rides_total,
+(SELECT
+COUNT(DISTINCT ride_id) AS total_rides
+FROM
+`bike_share_rides.full_year`) AS total_rides
+
+
+casual_rides_total	member_rides_total	total_rides
+2337386	3466234	5803616
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/25/2023
+DESCRIPTION: 
+*/
+
+
+CREATE TABLE bike_share_rides.total_monthly_rides_casual AS
+
+
+SELECT
+month,
+COUNT(ride_id) AS monthly_casual_rides
+FROM
+`bike_share_rides.full_year`
+WHERE 
+member_casual = 'casual'
+GROUP BY
+month;
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/25/2023
+DESCRIPTION: 
+*/
+
+
+CREATE TABLE bike_share_rides.total_monthly_rides_member AS
+
+SELECT
+month,
+COUNT(ride_id) AS monthly_member_rides
+FROM
+`bike_share_rides.full_year`
+WHERE 
+member_casual = 'member'
+GROUP BY
+month;
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/25/2023
+DESCRIPTION: 
+*/
+
+
+SELECT
+F.month,
+F.year,
+C.monthly_casual_rides,
+M.monthly_member_rides,
+COUNT(ride_id) AS monthly_total_rides
+FROM
+`bike_share_rides.full_year` AS F
+LEFT JOIN
+`bike_share_rides.total_monthly_rides_casual` AS C 
+ON
+F.month = C.month
+LEFT JOIN
+`bike_share_rides.total_monthly_rides_member` AS M
+ON
+C.month = M.month
+GROUP BY
+F.month,
+F.year,
+C.monthly_casual_rides,
+M.monthly_member_rides
+ORDER BY
+year ASC,
+month ASC;
+
+month	year	monthly_casual_rides	monthly_member_rides	monthly_total_rides
+4	2022	126417	244832	371249
+5	2022	280414	354443	634857
+6	2022	369044	400148	769192
+7	2022	406046	417426	823472
+8	2022	358917	427000	785917
+9	2022	296694	404636	701330
+10	2022	208988	349693	558681
+11	2022	100747	236947	337694
+12	2022	44894	136912	181806
+1	2023	40008	150293	190301
+2	2023	43016	147428	190444
+3	2023	62201	196477	258678
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/25/2023
+DESCRIPTION: 
+*/
+
+
+CREATE TABLE `bike_share_rides.daily_casual_ride_count_fy` 
+AS
+SELECT
+day_of_week,
+COUNT(ride_id) AS daily_casual_ride_count_fy
+FROM
+`bike_share_rides.full_year`
+WHERE 
+member_casual = 'casual'
+GROUP BY
+day_of_week
+ORDER BY
+day_of_week ASC;
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/25/2023
+DESCRIPTION: 
+*/
+
+
+CREATE TABLE `bike_share_rides.daily_member_ride_count_fy` 
+AS
+SELECT
+day_of_week,
+COUNT(ride_id) AS daily_member_ride_count_fy
+FROM
+`bike_share_rides.full_year`
+WHERE 
+member_casual = 'member'
+GROUP BY
+day_of_week
+ORDER BY
+day_of_week ASC;
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/25/2023
+DESCRIPTION: 
+*/
+
+
+SELECT
+F.day_of_week,
+C.daily_casual_ride_count_fy AS casual_total,
+M.daily_member_ride_count_fy AS member_total,
+COUNT(ride_id) AS total_daily_count
+FROM
+`bike_share_rides.full_year` AS F
+LEFT JOIN
+`bike_share_rides.daily_casual_ride_count_fy` AS C
+ON
+F.day_of_week = C.day_of_week
+LEFT JOIN
+`bike_share_rides.daily_member_ride_count_fy` AS M
+ON
+C.day_of_week = M.day_of_week
+GROUP BY
+F.day_of_week,
+C.daily_casual_ride_count_fy,
+M.daily_member_ride_count_fy
+ORDER BY
+F.day_of_week;
+
+
+day_of_week	casual_total	member_total	total_daily_count
+1	389433	397975	787408
+2	275692	484567	760259
+3	271372	544334	815706
+4	276662	546225	822887
+5	311740	551155	862895
+6	341009	489854	830863
+7	471478	452125	923603
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/25/2023
+DESCRIPTION: 
+*/
+
+
+CREATE TABLE bike_share_rides.daily_casual_ride_count AS 
+SELECT
+day_of_week,
+month,
+year,
+COUNT(ride_id) AS daily_casual_ride_count
+FROM
+`bike_share_rides.full_year`
+WHERE 
+member_casual = 'casual'
+GROUP BY
+day_of_week,
+month,
+year
+ORDER BY
+year ASC,
+month ASC,
+day_of_week ASC; 
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/25/2023
+DESCRIPTION: 
+*/
+
+
+CREATE TABLE bike_share_rides.daily_member_ride_count AS 
+SELECT
+day_of_week,
+month,
+year,
+COUNT(ride_id) AS daily_member_ride_count
+FROM
+`bike_share_rides.full_year`
+WHERE 
+member_casual = 'member'
+GROUP BY
+day_of_week,
+month,
+year
+ORDER BY
+year ASC,
+month ASC,
+day_of_week ASC; 
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/25/2023
+DESCRIPTION: 
+*/
+
+
+SELECT
+F.day_of_week,
+F.month,
+F.year,
+C.daily_casual_ride_count,
+M.daily_member_ride_count,
+COUNT(ride_id) AS daily_total_ride_count
+FROM
+`bike_share_rides.full_year` AS F
+LEFT JOIN
+`bike_share_rides.daily_casual_ride_count` AS C
+ON
+F.day_of_week = C.day_of_week
+AND
+F.month = C.month
+AND
+F.year = C.year
+LEFT JOIN
+`bike_share_rides.daily_member_ride_count` AS M 
+ON
+C.day_of_week = M.day_of_week
+AND
+C.month = M.month
+AND
+C.year = M.year
+GROUP BY
+day_of_week,
+month,
+year,
+C.daily_casual_ride_count,
+M.daily_member_ride_count
+ORDER BY
+F.year ASC,
+F.month ASC,
+F.day_of_week ASC;
+
+
+day_of_week	month	year	daily_casual_ride_count	daily_member_ride_count	daily_total_ride_count
+1	4	2022	19388	25457	44845
+2	4	2022	12063	33931	45994
+3	4	2022	14550	40432	54982
+4	4	2022	10457	32387	42844
+5	4	2022	16779	38595	55374
+6	4	2022	16850	35963	52813
+7	4	2022	36330	38067	74397
+1	5	2022	55321	48774	104095
+2	5	2022	47468	62061	109529
+3	5	2022	35067	59543	94610
+4	5	2022	24066	45097	69163
+5	5	2022	33399	51663	85062
+6	5	2022	32238	42310	74548
+7	5	2022	52855	44995	97850
+1	6	2022	65851	49062	114913
+2	6	2022	37004	46791	83795
+3	6	2022	38819	54982	93801
+4	6	2022	48387	68797	117184
+5	6	2022	57978	73500	131478
+6	6	2022	55868	57322	113190
+7	6	2022	65137	49694	114831
+1	7	2022	78251	58780	137031
+2	7	2022	43971	49850	93821
+3	7	2022	41447	57520	98967
+4	7	2022	42850	59611	102461
+5	7	2022	47793	61155	108948
+6	7	2022	56504	61643	118147
+7	7	2022	95230	68867	164097
+1	8	2022	48154	42972	91126
+2	8	2022	42361	62602	104963
+3	8	2022	51508	76718	128226
+4	8	2022	51488	76616	128104
+5	8	2022	42351	57508	99859
+6	8	2022	56867	58703	115570
+7	8	2022	66188	51881	118069
+1	9	2022	36254	35739	71993
+2	9	2022	31051	47422	78473
+3	9	2022	29586	57033	86619
+4	9	2022	33504	61505	95009
+5	9	2022	45838	76589	122427
+6	9	2022	56385	72329	128714
+7	9	2022	64076	54019	118095
+1	10	2022	44681	50366	95047
+2	10	2022	27234	58287	85521
+3	10	2022	15694	39748	55442
+4	10	2022	20593	48893	69486
+5	10	2022	22585	49238	71823
+6	10	2022	25979	45024	71003
+7	10	2022	52222	58137	110359
+1	11	2022	12472	21193	33665
+2	11	2022	10300	32304	42604
+3	11	2022	15808	46114	61922
+4	11	2022	17779	47448	65227
+5	11	2022	17981	39125	57106
+6	11	2022	14538	30323	44861
+7	11	2022	11869	20440	32309
+1	12	2022	5343	12117	17460
+2	12	2022	4936	18889	23825
+3	12	2022	5917	22108	28025
+4	12	2022	5678	20162	25840
+5	12	2022	8177	27095	35272
+6	12	2022	7156	19662	26818
+7	12	2022	7687	16879	24566
+1	1	2023	6377	15989	22366
+2	1	2023	5698	22649	28347
+3	1	2023	6904	29377	36281
+4	1	2023	5978	24743	30721
+5	1	2023	5022	22645	27667
+6	1	2023	5012	20109	25121
+7	1	2023	5017	14781	19798
+1	2	2023	9955	20337	30292
+2	2	2023	6788	24391	31179
+3	2	2023	6853	28631	35484
+4	2	2023	4577	21215	25792
+5	2	2023	3712	18140	21852
+6	2	2023	4250	17311	21561
+7	2	2023	6881	17403	24284
+1	3	2023	7386	17189	24575
+2	3	2023	6818	25390	32208
+3	3	2023	9219	32128	41347
+4	3	2023	11305	39751	51056
+5	3	2023	10125	35902	46027
+6	3	2023	9362	29155	38517
+7	3	2023	7986	16962	24948
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/25/2023
+DESCRIPTION: 
+*/
+
+
+SELECT
+(SELECT
+MAX(ride_length) AS casual_max
+FROM
+`bike_share_rides.full_year`
+WHERE
+member_casual = 'casual') AS casual_max,
+(SELECT
+MAX(ride_length) AS member_max
+FROM
+`bike_share_rides.full_year`
+WHERE
+member_casual = 'member') AS member_max
+
+casual_max	member_max
+0-0 0 23:59:56	0-0 0 23:59:50
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/25/2023
+DESCRIPTION: 
+*/
+
+
+SELECT
+F.month,
+F.year,
+C.casual_max,
+M.member_max,
+MAX(ride_length) AS monthly_max
+FROM
+`bike_share_rides.full_year` AS F 
+LEFT JOIN
+`bike_share_rides.max_ride_length_by_month_casual` AS C
+ON
+F.month = C.month
+LEFT JOIN
+`bike_share_rides.max_ride_length_by_month_member` AS M
+ON 
+C.month = M.month
+GROUP BY
+F.month,
+F.year,
+C.casual_max,
+M.member_max
+ORDER BY
+year ASC,
+month ASC
+
+
+
+month	year	casual_max	member_max	monthly_max
+4	2022	0-0 0 23:58:35	0-0 0 23:41:12	0-0 0 23:58:35
+5	2022	0-0 0 23:58:53	0-0 0 23:13:47	0-0 0 23:58:53
+6	2022	0-0 0 23:59:18	0-0 0 22:3:32	0-0 0 23:59:18
+7	2022	0-0 0 23:59:22	0-0 0 22:41:52	0-0 0 23:59:22
+8	2022	0-0 0 23:59:2	0-0 0 23:38:56	0-0 0 23:59:2
+9	2022	0-0 0 23:59:34	0-0 0 23:35:27	0-0 0 23:59:34
+10	2022	0-0 0 23:53:52	0-0 0 23:56:20	0-0 0 23:56:20
+11	2022	0-0 0 23:59:56	0-0 0 23:59:50	0-0 0 23:59:56
+12	2022	0-0 0 23:17:35	0-0 0 23:26:21	0-0 0 23:26:21
+1	2023	0-0 0 22:31:13	0-0 0 23:42:34	0-0 0 23:42:34
+2	2023	0-0 0 23:58:7	0-0 0 23:43:47	0-0 0 23:58:7
+3	2023	0-0 0 23:47:34	0-0 0 23:42:22	0-0 0 23:47:34
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/26/2023
+DESCRIPTION: 
+*/
+
+
+CREATE TABLE bike_share_rides.max_ride_length_comparison AS
+SELECT 
+F.month,
+F.year,
+C.casual_max,
+M.member_max,
+MAX(ride_length) AS monthly_max
+FROM
+`bike_share_rides.full_year` AS F 
+LEFT JOIN
+`bike_share_rides.max_ride_length_by_month_casual` AS C
+ON
+F.month = C.month
+LEFT JOIN
+`bike_share_rides.max_ride_length_by_month_member` AS M
+ON 
+C.month = M.month
+GROUP BY
+F.month,
+F.year,
+C.casual_max,
+M.member_max
+ORDER BY
+year ASC,
+month ASC
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/26/2023
+DESCRIPTION: 
+*/
+
+
+SELECT
+COUNT(*) AS longer_rides
+FROM
+`bike_share_rides.max_ride_length_comparison`
+WHERE
+casual_max > member_max;
+
+
+longer_rides
+9
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/26/2023
+DESCRIPTION: 
+*/
+
+
+SELECT
+COUNT(*) AS longer_rides
+FROM
+`bike_share_rides.max_ride_length_comparison`
+WHERE
+member_max > casual_max;
+
+
+longer_rides
+3
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/26/2023
+DESCRIPTION: 
+*/
+
+
+SELECT
+(SELECT
+SUM(ride_length) AS casual_max
+FROM
+`bike_share_rides.full_year`
+WHERE
+member_casual = 'casual') AS casual_ride_length_total,
+(SELECT
+SUM(ride_length) AS member_max
+FROM
+`bike_share_rides.full_year`
+WHERE
+member_casual = 'member') AS member_ride_length_total
+
+
+casual_ride_length_total	member_ride_length_total
+0-0 0 852989:56:10	0-0 0 704415:23:22
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/26/2023
+DESCRIPTION: 
+*/
+
+
+CREATE TABLE bike_share_rides.casual_rider_ride_length_by_month AS
+SELECT
+month,
+SUM(ride_length) AS casual_rider_ride_length
+FROM
+`bike_share_rides.full_year`
+WHERE
+member_casual = 'casual'
+GROUP BY
+month
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/26/2023
+DESCRIPTION: 
+*/
+
+
+CREATE TABLE bike_share_rides.member_rider_ride_length_by_month AS
+SELECT
+month,
+SUM(ride_length) AS member_rider_ride_length
+FROM
+`bike_share_rides.full_year`
+WHERE
+member_casual = 'member'
+GROUP BY
+month
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/26/2023
+DESCRIPTION: 
+*/
+
+
+SELECT
+F.month,
+F.year,
+C.casual_rider_ride_length AS casual_rider_ride_length,
+M.member_rider_ride_length AS member_rider_ride_length,
+SUM(ride_length) AS total_ride_length
+FROM
+`bike_share_rides.full_year` AS F 
+LEFT JOIN
+`bike_share_rides.casual_rider_ride_length_by_month` AS C
+ON
+F.month = C.month
+LEFT JOIN
+`bike_share_rides.member_rider_ride_length_by_month` AS M
+ON
+C.month = M.month
+GROUP BY
+F.month,
+F.year,
+C.casual_rider_ride_length,
+M.member_rider_ride_length
+ORDER BY
+year ASC,
+month ASC
+
+
+month	year	casual_rider_ride_length	member_rider_ride_length	total_ride_length
+4	2022	0-0 0 49959:20:50	0-0 0 46271:8:17	0-0 0 96230:29:7
+5	2022	0-0 0 120943:42:22	0-0 0 77138:5:3	0-0 0 198081:47:25
+6	2022	0-0 0 147204:8:33	0-0 0 91058:59:21	0-0 0 238263:7:54
+7	2022	0-0 0 159478:38:5	0-0 0 93449:58:33	0-0 0 252928:36:38
+8	2022	0-0 0 132014:50:41	0-0 0 93116:39:6	0-0 0 225131:29:47
+9	2022	0-0 0 101785:18:21	0-0 0 85204:47:32	0-0 0 186990:5:53
+10	2022	0-0 0 66087:21:58	0-0 0 67298:13:40	0-0 0 133385:35:38
+11	2022	0-0 0 26981:56:29	0-0 0 42905:22:9	0-0 0 69887:18:38
+12	2022	0-0 0 10485:47:42	0-0 0 23608:15:19	0-0 0 34094:3:1
+1	2023	0-0 0 9519:36:55	0-0 0 25235:0:38	0-0 0 34754:37:33
+2	2023	0-0 0 11923:29:17	0-0 0 25726:37:26	0-0 0 37650:6:43
+3	2023	0-0 0 16605:44:57	0-0 0 33402:16:18	0-0 0 50008:1:15
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/28/2023
+DESCRIPTION: 
+*/
+
+
+CREATE TABLE bike_share_rides.daily_casual_rider_ride_length AS
+SELECT
+day_of_week,
+SUM(ride_length) AS casual_rider_ride_length
+FROM
+`bike_share_rides.full_year`
+WHERE
+member_casual = 'casual'
+GROUP BY
+day_of_week
+ORDER BY
+day_of_week ASC;
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/28/2023
+DESCRIPTION: 
+*/
+
+
+CREATE TABLE bike_share_rides.daily_member_rider_ride_length AS
+SELECT
+day_of_week,
+SUM(ride_length) AS member_rider_ride_length
+FROM
+`bike_share_rides.full_year`
+WHERE
+member_casual = 'member'
+GROUP BY
+day_of_week
+ORDER BY
+day_of_week ASC;
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/28/2023
+DESCRIPTION: 
+*/
+
+
+SELECT
+F.day_of_week,
+C.casual_rider_ride_length AS casual,
+M.member_rider_ride_length AS member,
+SUM(ride_length) AS total
+FROM
+`bike_share_rides.full_year` AS F 
+LEFT JOIN
+`bike_share_rides.daily_casual_rider_ride_length` AS C
+ON
+F.day_of_week = C.day_of_week
+LEFT JOIN
+`bike_share_rides.daily_member_rider_ride_length` AS M
+ON
+C.day_of_week = M.day_of_week
+GROUP BY
+F.day_of_week,
+C.casual_rider_ride_length,
+M.member_rider_ride_length
+ORDER BY
+day_of_week ASC
+
+
+day_of_week	casual	member	total
+1	0-0 0 163516:57:29	0-0 0 89523:24:52	0-0 0 253040:22:21
+2	0-0 0 101587:4:3	0-0 0 94601:25:47	0-0 0 196188:29:50
+3	0-0 0 88650:10:8	0-0 0 105373:9:31	0-0 0 194023:19:39
+4	0-0 0 85669:10:22	0-0 0 105669:48:42	0-0 0 191338:59:4
+5	0-0 0 101592:30:32	0-0 0 108437:54:32	0-0 0 210030:25:4
+6	0-0 0 117716:43:10	0-0 0 98030:1:22	0-0 0 215746:44:32
+7	0-0 0 194257:20:26	0-0 0 102779:38:36	0-0 0 297036:59:2
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/28/2023
+DESCRIPTION: 
+*/
+
+CREATE TABLE bike_share_rides.casual_rider_ride_length_by_day AS
+SELECT
+day_of_week,
+month,
+year,
+SUM(ride_length) AS casual_rider_ride_length
+FROM
+`bike_share_rides.full_year`
+WHERE
+member_casual = 'casual'
+GROUP BY
+month,
+year,
+day_of_week
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/28/2023
+DESCRIPTION: 
+*/
+
+
+CREATE TABLE bike_share_rides.member_rider_ride_length_by_day AS
+SELECT
+day_of_week,
+month,
+year,
+SUM(ride_length) AS casual_rider_ride_length
+FROM
+`bike_share_rides.full_year`
+WHERE
+member_casual = 'member'
+GROUP BY
+month,
+year,
+day_of_week
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/28/2023
+DESCRIPTION: 
+*/
+
+
+SELECT
+F.day_of_week,
+F.month,
+F.year,
+C.casual_rider_ride_length AS casual,
+M.member_rider_ride_length AS member,
+SUM(ride_length) AS total
+FROM
+`bike_share_rides.full_year` AS F 
+LEFT JOIN
+`bike_share_rides.casual_rider_ride_length_by_day` AS C
+ON
+F.month = C.month
+AND
+F.year = C.year
+AND
+F.day_of_week = C.day_of_week
+LEFT JOIN
+`bike_share_rides.member_rider_ride_length_by_day` AS M
+ON
+C.month = M.month
+AND
+C.year = M.year
+AND
+C.day_of_week = M.day_of_week
+GROUP BY
+F.day_of_week,
+F.month,
+F.year,
+C.casual_rider_ride_length,
+M.member_rider_ride_length
+ORDER BY
+year ASC,
+month ASC,
+day_of_week ASC
+
+
+day_of_week	month	year	casual	member	total
+1	4	2022	0-0 0 8441:53:27	0-0 0 5247:17:52	0-0 0 13689:11:19
+2	4	2022	0-0 0 4247:15:20	0-0 0 5991:18:41	0-0 0 10238:34:1
+3	4	2022	0-0 0 4966:13:0	0-0 0 7203:16:20	0-0 0 12169:29:20
+4	4	2022	0-0 0 3119:32:17	0-0 0 5615:41:26	0-0 0 8735:13:43
+5	4	2022	0-0 0 6105:56:20	0-0 0 7210:41:8	0-0 0 13316:37:28
+6	4	2022	0-0 0 5682:34:35	0-0 0 6501:58:27	0-0 0 12184:33:2
+7	4	2022	0-0 0 17395:55:51	0-0 0 8500:54:23	0-0 0 25896:50:14
+1	5	2022	0-0 0 26433:50:48	0-0 0 11481:33:37	0-0 0 37915:24:25
+2	5	2022	0-0 0 21921:10:18	0-0 0 13588:19:37	0-0 0 35509:29:55
+3	5	2022	0-0 0 13589:36:30	0-0 0 12297:34:46	0-0 0 25887:11:16
+4	5	2022	0-0 0 8689:32:16	0-0 0 9092:53:3	0-0 0 17782:25:19
+5	5	2022	0-0 0 13167:54:9	0-0 0 11042:19:11	0-0 0 24210:13:20
+6	5	2022	0-0 0 12477:7:0	0-0 0 8751:19:38	0-0 0 21228:26:38
+7	5	2022	0-0 0 24664:31:21	0-0 0 10884:5:11	0-0 0 35548:36:32
+1	6	2022	0-0 0 30012:48:1	0-0 0 12656:36:2	0-0 0 42669:24:3
+2	6	2022	0-0 0 14973:0:41	0-0 0 10056:34:1	0-0 0 25029:34:42
+3	6	2022	0-0 0 14509:3:29	0-0 0 12071:43:6	0-0 0 26580:46:35
+4	6	2022	0-0 0 16888:0:38	0-0 0 14643:2:58	0-0 0 31531:3:36
+5	6	2022	0-0 0 21474:10:4	0-0 0 16284:36:9	0-0 0 37758:46:13
+6	6	2022	0-0 0 21825:39:9	0-0 0 12995:12:31	0-0 0 34820:51:40
+7	6	2022	0-0 0 27521:26:31	0-0 0 12351:14:34	0-0 0 39872:41:5
+1	7	2022	0-0 0 34703:30:41	0-0 0 14482:34:5	0-0 0 49186:4:46
+2	7	2022	0-0 0 18118:26:43	0-0 0 10976:11:15	0-0 0 29094:37:58
+3	7	2022	0-0 0 14577:9:8	0-0 0 12089:0:21	0-0 0 26666:9:29
+4	7	2022	0-0 0 14474:42:56	0-0 0 12562:25:39	0-0 0 27037:8:35
+5	7	2022	0-0 0 16032:40:17	0-0 0 13005:43:7	0-0 0 29038:23:24
+6	7	2022	0-0 0 20003:42:13	0-0 0 13062:59:10	0-0 0 33066:41:23
+7	7	2022	0-0 0 41568:26:7	0-0 0 17271:4:56	0-0 0 58839:31:3
+1	8	2022	0-0 0 19812:55:27	0-0 0 10073:47:45	0-0 0 29886:43:12
+2	8	2022	0-0 0 14855:21:48	0-0 0 12850:19:38	0-0 0 27705:41:26
+3	8	2022	0-0 0 18118:36:30	0-0 0 16339:21:31	0-0 0 34457:58:1
+4	8	2022	0-0 0 16748:5:56	0-0 0 16304:54:0	0-0 0 33052:59:56
+5	8	2022	0-0 0 14336:36:14	0-0 0 12234:56:7	0-0 0 26571:32:21
+6	8	2022	0-0 0 21279:54:22	0-0 0 12975:21:1	0-0 0 34255:15:23
+7	8	2022	0-0 0 26863:20:24	0-0 0 12337:59:4	0-0 0 39201:19:28
+1	9	2022	0-0 0 13933:29:21	0-0 0 8231:42:4	0-0 0 22165:11:25
+2	9	2022	0-0 0 11071:38:13	0-0 0 9725:54:38	0-0 0 20797:32:51
+3	9	2022	0-0 0 8710:26:41	0-0 0 11313:8:50	0-0 0 20023:35:31
+4	9	2022	0-0 0 9990:55:19	0-0 0 12340:58:39	0-0 0 22331:53:58
+5	9	2022	0-0 0 13442:19:2	0-0 0 15576:56:53	0-0 0 29019:15:55
+6	9	2022	0-0 0 18724:53:53	0-0 0 15154:1:8	0-0 0 33878:55:1
+7	9	2022	0-0 0 25911:35:52	0-0 0 12862:5:20	0-0 0 38773:41:12
+1	10	2022	0-0 0 16774:17:26	0-0 0 10802:30:25	0-0 0 27576:47:51
+2	10	2022	0-0 0 8193:56:2	0-0 0 10659:36:2	0-0 0 18853:32:4
+3	10	2022	0-0 0 3847:52:46	0-0 0 7070:23:16	0-0 0 10918:16:2
+4	10	2022	0-0 0 5106:53:39	0-0 0 8842:35:46	0-0 0 13949:29:25
+5	10	2022	0-0 0 5711:44:40	0-0 0 8771:51:45	0-0 0 14483:36:25
+6	10	2022	0-0 0 7540:9:26	0-0 0 8539:18:27	0-0 0 16079:27:53
+7	10	2022	0-0 0 18912:27:59	0-0 0 12611:57:59	0-0 0 31524:25:58
+1	11	2022	0-0 0 4042:36:4	0-0 0 4074:54:25	0-0 0 8117:30:29
+2	11	2022	0-0 0 2369:43:12	0-0 0 5569:33:47	0-0 0 7939:16:59
+3	11	2022	0-0 0 3655:24:52	0-0 0 8164:35:21	0-0 0 11820:0:13
+4	11	2022	0-0 0 4355:51:26	0-0 0 8493:9:7	0-0 0 12849:0:33
+5	11	2022	0-0 0 5203:45:1	0-0 0 7349:21:55	0-0 0 12553:6:56
+6	11	2022	0-0 0 3851:48:49	0-0 0 5518:57:43	0-0 0 9370:46:32
+7	11	2022	0-0 0 3502:47:5	0-0 0 3734:49:51	0-0 0 7237:36:56
+1	12	2022	0-0 0 1348:4:47	0-0 0 2166:58:56	0-0 0 3515:3:43
+2	12	2022	0-0 0 1024:18:6	0-0 0 3229:53:16	0-0 0 4254:11:22
+3	12	2022	0-0 0 1151:11:1	0-0 0 3710:30:43	0-0 0 4861:41:44
+4	12	2022	0-0 0 1260:25:41	0-0 0 3442:21:33	0-0 0 4702:47:14
+5	12	2022	0-0 0 1915:49:25	0-0 0 4577:51:17	0-0 0 6493:40:42
+6	12	2022	0-0 0 1857:43:41	0-0 0 3449:13:36	0-0 0 5306:57:17
+7	12	2022	0-0 0 1928:15:1	0-0 0 3031:25:58	0-0 0 4959:40:59
+1	1	2023	0-0 0 2000:34:26	0-0 0 3014:24:6	0-0 0 5014:58:32
+2	1	2023	0-0 0 1329:25:25	0-0 0 3701:26:56	0-0 0 5030:52:21
+3	1	2023	0-0 0 1468:29:19	0-0 0 4874:33:42	0-0 0 6343:3:1
+4	1	2023	0-0 0 1338:49:19	0-0 0 4096:44:41	0-0 0 5435:34:0
+5	1	2023	0-0 0 987:4:7	0-0 0 3591:28:39	0-0 0 4578:32:46
+6	1	2023	0-0 0 993:28:42	0-0 0 3352:26:55	0-0 0 4345:55:37
+7	1	2023	0-0 0 1401:45:37	0-0 0 2603:55:39	0-0 0 4005:41:16
+1	2	2023	0-0 0 3601:47:42	0-0 0 4187:6:46	0-0 0 7788:54:28
+2	2	2023	0-0 0 1723:33:44	0-0 0 4107:18:24	0-0 0 5830:52:8
+3	2	2023	0-0 0 1572:37:29	0-0 0 4722:5:16	0-0 0 6294:42:45
+4	2	2023	0-0 0 885:33:2	0-0 0 3413:9:30	0-0 0 4298:42:32
+5	2	2023	0-0 0 834:27:15	0-0 0 2951:54:12	0-0 0 3786:21:27
+6	2	2023	0-0 0 1045:56:6	0-0 0 2901:9:37	0-0 0 3947:5:43
+7	2	2023	0-0 0 2259:33:59	0-0 0 3443:53:41	0-0 0 5703:27:40
+1	3	2023	0-0 0 2411:9:19	0-0 0 3103:58:49	0-0 0 5515:8:8
+2	3	2023	0-0 0 1759:14:31	0-0 0 4144:59:32	0-0 0 5904:14:3
+3	3	2023	0-0 0 2483:29:23	0-0 0 5516:56:19	0-0 0 8000:25:42
+4	3	2023	0-0 0 2810:47:53	0-0 0 6821:52:20	0-0 0 9632:40:13
+5	3	2023	0-0 0 2380:3:58	0-0 0 5840:14:9	0-0 0 8220:18:7
+6	3	2023	0-0 0 2433:45:14	0-0 0 4828:3:9	0-0 0 7261:48:23
+7	3	2023	0-0 0 2327:14:39	0-0 0 3146:12:0	0-0 0 5473:26:39
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/28/2023
+DESCRIPTION: 
+*/
+
+
+SELECT
+(SELECT
+COUNT(DISTINCT ride_id) AS casual_count
+FROM
+`bike_share_rides.full_year`
+WHERE
+member_casual = 'casual') AS casual_rides_total,
+(SELECT
+COUNT(DISTINCT ride_id) AS member_max
+FROM
+`bike_share_rides.full_year`
+WHERE
+member_casual = 'member') AS member_rides_total,
+(SELECT
+COUNT(DISTINCT ride_id) AS total_rides
+FROM
+`bike_share_rides.full_year`) AS total_rides
+
+
+casual_rides_total	member_rides_total	total_rides
+2337386	3466234	5803616
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/28/2023
+DESCRIPTION: 
+*/
+
+
+SELECT
+DISTINCT COUNT(*) AS distinct_rides
+FROM 
+`bike_share_rides.full_year`
+
+
+distinct_rides
 5803621
 
 
@@ -1153,70 +1602,58 @@ CREATED ON: 6/28/2023
 DESCRIPTION: 
 */
 
-
+CREATE TABLE bike_share_rides.hourly_rider_traffic_casual AS
 SELECT
-member_casual,
 extract(HOUR FROM started_at) AS hour_of_day,
-COUNT(ride_id) AS rides_per_time_of_day
+COUNT(ride_id) AS casual_rider_traffic
+FROM
+`bike_share_rides.full_year`
+WHERE 
+member_casual = 'casual'
+GROUP BY
+hour_of_day
+ORDER BY
+hour_of_day
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/28/2023
+DESCRIPTION: 
+*/
+
+
+CREATE TABLE bike_share_rides.hourly_rider_traffic_member AS
+SELECT
+extract(HOUR FROM started_at) AS hour_of_day,
+COUNT(ride_id) AS member_rider_traffic
+FROM
+`bike_share_rides.full_year`
+WHERE 
+member_casual = 'member'
+GROUP BY
+hour_of_day
+ORDER BY
+hour_of_day
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/28/2023
+DESCRIPTION: 
+*/
+
+
+CREATE TABLE bike_share_rides.hourly_rider_traffic_total AS
+SELECT
+extract(HOUR FROM started_at) AS hour_of_day,
+COUNT(ride_id) AS total_hourly_rider_traffic
 FROM
 `bike_share_rides.full_year`
 GROUP BY
-member_casual,
 hour_of_day
 ORDER BY
-hour_of_day,
-rides_per_time_of_day;
-
-
-member_casual	hour_of_day	rides_per_time_of_day
-member	0	37129
-casual	0	46673
-member	1	22692
-casual	1	30146
-member	2	13246
-casual	2	18750
-member	3	8090
-casual	3	11105
-casual	4	7716
-member	4	9137
-casual	5	12834
-member	5	32791
-casual	6	30789
-member	6	96387
-casual	7	53499
-member	7	179918
-casual	8	72001
-member	8	215787
-casual	9	73766
-member	9	151008
-casual	10	93952
-member	10	141086
-casual	11	122230
-member	11	167891
-casual	12	144424
-member	12	192861
-casual	13	150779
-member	13	192047
-casual	14	160479
-member	14	191089
-casual	15	178857
-member	15	230387
-casual	16	199424
-member	16	303726
-casual	17	221099
-member	17	363340
-casual	18	197290
-member	18	292886
-casual	19	151781
-member	19	211932
-casual	20	112410
-member	20	148801
-casual	21	96241
-member	21	116782
-casual	22	86575
-member	22	88907
-member	23	58315
-casual	23	64566
+hour_of_day
 
 
 /* 
@@ -1227,169 +1664,171 @@ DESCRIPTION:
 
 
 SELECT
-member_casual,
-SUM(rides_per_time_of_day) AS total_rides_morning
+F.hour_of_day,
+C.casual_rider_traffic,
+M.member_rider_traffic,
+F.total_hourly_rider_traffic
 FROM
-(SELECT
-member_casual,
-extract(HOUR FROM started_at) AS hour_of_day,
-COUNT(ride_id) AS rides_per_time_of_day
-FROM
-`bike_share_rides.full_year`
-GROUP BY
-member_casual,
-hour_of_day
-ORDER BY
-hour_of_day,
-rides_per_time_of_day)
-WHERE
-hour_of_day > 12
-GROUP BY
-member_casual;
-
-
-member_casual	total_rides_morning
-casual	1619501
-member	2198212
-
-
-/* 
-CREATED BY: Jeremy Bosse
-CREATED ON: 6/28/2023
-DESCRIPTION: 
-*/
-
-
-SELECT
-member_casual,
-SUM(rides_per_time_of_day) AS total_rides_evening
-FROM
-(SELECT
-member_casual,
-extract(HOUR FROM started_at) AS hour_of_day,
-COUNT(ride_id) AS rides_per_time_of_day
-FROM
-`bike_share_rides.full_year`
-GROUP BY
-member_casual,
-hour_of_day
-ORDER BY
-hour_of_day,
-rides_per_time_of_day)
-WHERE
-hour_of_day < 12
-GROUP BY
-member_casual;
-
-
-member_casual	total_rides_evening
-member	1075162
-casual	573461
-
-
-/* 
-CREATED BY: Jeremy Bosse
-CREATED ON: 6/28/2023
-DESCRIPTION: 
-*/
-
-
-CREATE TABLE bike_share_rides.total_rides_by_hour AS
-SELECT
-extract(HOUR FROM started_at) AS hour_of_day,
-COUNT(ride_id) AS total_rides_by_hour
-FROM
-`bike_share_rides.full_year` 
-GROUP BY 
-hour_of_day;
-
-
-/* 
-CREATED BY: Jeremy Bosse
-CREATED ON: 6/28/2023
-DESCRIPTION: 
-*/
-
-
-SELECT
-member_casual,
-A.hour_of_day,
-SUM(rides_per_time_of_day) AS total_rides_by_member,
-B.total_rides_by_hour
-FROM
-(SELECT
-member_casual,
-extract(HOUR FROM started_at) AS hour_of_day,
-COUNT(ride_id) AS rides_per_time_of_day
-FROM
-`bike_share_rides.full_year`
-GROUP BY
-member_casual,
-hour_of_day
-ORDER BY
-hour_of_day,
-rides_per_time_of_day) AS A
-LEFT JOIN 
-`bike_share_rides.total_rides_by_hour` AS B
+`bike_share_rides.hourly_rider_traffic_total` AS F
+LEFT JOIN
+`bike_share_rides.hourly_rider_traffic_casual` AS C
 ON
-A.hour_of_day = B.hour_of_day
+F.hour_of_day = C.hour_of_day
+LEFT JOIN
+`bike_share_rides.hourly_rider_traffic_member` AS M 
+ON
+C.hour_of_day = M.hour_of_day
 GROUP BY
-A.hour_of_day,
-member_casual,
-B.total_rides_by_hour
+F.hour_of_day,
+F.total_hourly_rider_traffic,
+C.casual_rider_traffic,
+M.member_rider_traffic
 ORDER BY
-hour_of_day ASC;
+F.hour_of_day
 
 
-member_casual	hour_of_day	total_rides_by_member	total_rides_by_hour
-member	0	37129	83802
-casual	0	46673	83802
-casual	1	30146	52838
-member	1	22692	52838
-casual	2	18750	31996
-member	2	13246	31996
-casual	3	11105	19195
-member	3	8090	19195
-casual	4	7716	16853
-member	4	9137	16853
-casual	5	12834	45625
-member	5	32791	45625
-casual	6	30789	127176
-member	6	96387	127176
-member	7	179918	233417
-casual	7	53499	233417
-casual	8	72001	287788
-member	8	215787	287788
-member	9	151008	224774
-casual	9	73766	224774
-casual	10	93952	235038
-member	10	141086	235038
-casual	11	122230	290121
-member	11	167891	290121
-casual	12	144424	337285
-member	12	192861	337285
-member	13	192047	342826
-casual	13	150779	342826
-casual	14	160479	351568
-member	14	191089	351568
-member	15	230387	409244
-casual	15	178857	409244
-member	16	303726	503150
-casual	16	199424	503150
-casual	17	221099	584439
-member	17	363340	584439
-member	18	292886	490176
-casual	18	197290	490176
-member	19	211932	363713
-casual	19	151781	363713
-casual	20	112410	261211
-member	20	148801	261211
-casual	21	96241	213023
-member	21	116782	213023
-casual	22	86575	175482
-member	22	88907	175482
-casual	23	64566	122881
-member	23	58315	122881
+hour_of_day	casual_rider_traffic	member_rider_traffic	total_hourly_rider_traffic
+0	46673	37129	83802
+1	30146	22692	52838
+2	18750	13246	31996
+3	11105	8090	19195
+4	7716	9137	16853
+5	12834	32791	45625
+6	30789	96387	127176
+7	53499	179918	233417
+8	72001	215787	287788
+9	73766	151008	224774
+10	93952	141086	235038
+11	122230	167891	290121
+12	144424	192861	337285
+13	150779	192047	342826
+14	160479	191089	351568
+15	178857	230387	409244
+16	199424	303726	503150
+17	221099	363340	584439
+18	197290	292886	490176
+19	151781	211932	363713
+20	112410	148801	261211
+21	96241	116782	213023
+22	86575	88907	175482
+23	64566	58315	122881
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/28/2023
+DESCRIPTION: 
+*/
+
+SELECT
+SUM(casual_traffic_by_hour) AS morning_casual_traffic,
+SUM(member_traffic_by_hour) AS morning_member_traffic,
+SUM(total_traffic_by_hour) AS morning_total_traffic
+FROM
+(SELECT
+F.hour_of_day AS hour_of_day,
+C.casual_rider_traffic AS casual_traffic_by_hour,
+M.member_rider_traffic AS member_traffic_by_hour,
+F.total_hourly_rider_traffic AS total_traffic_by_hour
+FROM
+`bike_share_rides.hourly_rider_traffic_total` AS F
+LEFT JOIN
+`bike_share_rides.hourly_rider_traffic_casual` AS C
+ON
+F.hour_of_day = C.hour_of_day
+LEFT JOIN
+`bike_share_rides.hourly_rider_traffic_member` AS M 
+ON
+C.hour_of_day = M.hour_of_day
+GROUP BY
+F.hour_of_day,
+F.total_hourly_rider_traffic,
+C.casual_rider_traffic,
+M.member_rider_traffic
+ORDER BY
+F.hour_of_day)
+WHERE 
+hour_of_day BETWEEN 0 AND 11
+
+morning_casual_traffic	morning_member_traffic	morning_total_traffic
+573461	1075162	1648623
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 6/28/2023
+DESCRIPTION: 
+*/
+
+
+SELECT
+SUM(casual_traffic_by_hour) AS afternoon_casual_traffic,
+SUM(member_traffic_by_hour) AS afternoon_member_traffic,
+SUM(total_traffic_by_hour) AS afternoon_total_traffic
+FROM
+(SELECT
+F.hour_of_day AS hour_of_day,
+C.casual_rider_traffic AS casual_traffic_by_hour,
+M.member_rider_traffic AS member_traffic_by_hour,
+F.total_hourly_rider_traffic AS total_traffic_by_hour
+FROM
+`bike_share_rides.hourly_rider_traffic_total` AS F
+LEFT JOIN
+`bike_share_rides.hourly_rider_traffic_casual` AS C
+ON
+F.hour_of_day = C.hour_of_day
+LEFT JOIN
+`bike_share_rides.hourly_rider_traffic_member` AS M 
+ON
+C.hour_of_day = M.hour_of_day
+GROUP BY
+F.hour_of_day,
+F.total_hourly_rider_traffic,
+C.casual_rider_traffic,
+M.member_rider_traffic
+ORDER BY
+F.hour_of_day)
+WHERE 
+hour_of_day BETWEEN 12 AND 23
+
+
+afternoon_casual_traffic	afternoon_member_traffic	afternoon_total_traffic
+1763925	2391073	4154998
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 7/3/2023
+DESCRIPTION: 
+*/
+
+
+CREATE TABLE bike_share_rides.member_casual_use_by_hour AS
+SELECT
+extract(HOUR FROM started_at) AS hour_of_day,
+member_casual
+FROM
+`bike_share_rides.full_year`
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 7/3/2023
+DESCRIPTION: 
+*/
+
+
+SELECT
+SUM(CASE WHEN hour_of_day BETWEEN 0 AND 11 AND member_casual = 'casual' THEN 1 ELSE 0 END) AS casual_morning_rides,
+SUM(CASE WHEN hour_of_day BETWEEN 12 AND 23 AND member_casual = 'casual' THEN 1 ELSE 0 END) AS casual_afternoon_rides,
+SUM(CASE WHEN hour_of_day BETWEEN 0 AND 11 AND member_casual = 'member' THEN 1 ELSE 0 END) AS member_morning_rides,
+SUM(CASE WHEN hour_of_day BETWEEN 12 AND 23 AND member_casual = 'member' THEN 1 ELSE 0 END) AS member_afternoon_rides,
+COUNT(member_casual) AS total_rides
+FROM
+`bike_share_rides.member_casual_use_by_hour`
+
+
+casual_morning_rides	casual_afternoon_rides	member_morning_rides	member_afternoon_rides	total_rides
+573461	1763925	1075162	2391073	5803621
 
 
 /* 
@@ -1421,12 +1860,40 @@ DESCRIPTION:
 */
 
 
-CREATE TABLE bike_share_rides.rides_per_bike AS
+CREATE TABLE bike_share_rides.casual_rideable_type AS
 SELECT
 rideable_type,
-COUNT(ride_id) AS number_of_rides_by_bike
+COUNT(ride_id) AS casual_users
 FROM
 `bike_share_rides.full_year`
+WHERE 
+member_casual = 'casual'
+GROUP BY
+rideable_type;
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 7/3/2023
+DESCRIPTION: 
+*/
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 7/3/2023
+DESCRIPTION: 
+*/
+
+
+CREATE TABLE bike_share_rides.member_rideable_type AS
+SELECT
+rideable_type,
+COUNT(ride_id) AS member_users
+FROM
+`bike_share_rides.full_year`
+WHERE 
+member_casual = 'member'
 GROUP BY
 rideable_type;
 
@@ -1439,28 +1906,86 @@ DESCRIPTION:
 
 
 SELECT
-member_casual,
-A.rideable_type,
-COUNT(ride_id) AS number_of_rides_per_bike_by_member,
-B.number_of_rides_by_bike
+F.rideable_type,
+C.casual_users,
+M.member_users,
+COUNT(ride_id) AS rides_per_bike
 FROM
-`bike_share_rides.full_year` A
+`bike_share_rides.full_year` AS F
 LEFT JOIN
-`bike_share_rides.rides_per_bike` AS B
+`bike_share_rides.casual_rideable_type` AS C
 ON
-A.rideable_type = B.rideable_type
+F.rideable_type = C.rideable_type
+LEFT JOIN
+`bike_share_rides.member_rideable_type` AS M
+ON
+C.rideable_type = M.rideable_type
 GROUP BY
-member_casual,
-A.rideable_type,
-B.number_of_rides_by_bike;
+rideable_type,
+C.casual_users,
+M.member_users;
 
 
-member_casual	rideable_type	number_of_rides_per_bike_by_member	number_of_rides_by_bike
-casual	electric_bike	1273764	2990342
-member	electric_bike	1716578	2990342
-casual	classic_bike	889875	2639532
-member	classic_bike	1749657	2639532
-casual	docked_bike	173747	173747
+rideable_type	casual_users	member_users	rides_per_bike
+electric_bike	1273764	1716578	2990342
+classic_bike	889875	1749657	2639532
+docked_bike	173747		173747
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 7/3/2023
+DESCRIPTION: 
+*/
+
+
+CREATE TABLE bike_share_rides.electric_bike_casual AS
+SELECT
+month,
+year,
+rideable_type,
+COUNT(ride_id) AS rideable_type_trend_casual
+FROM
+`bike_share_rides.full_year`
+WHERE 
+member_casual = 'casual'
+AND 
+rideable_type = 'electric_bike'
+GROUP BY
+month,
+year,
+rideable_type
+ORDER BY
+year ASC,
+month ASC;
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 7/3/2023
+DESCRIPTION: 
+*/
+
+
+CREATE TABLE bike_share_rides.electric_bike_member AS
+SELECT
+month,
+year,
+rideable_type,
+COUNT(ride_id) AS rideable_type_trend_member
+FROM
+`bike_share_rides.full_year`
+WHERE 
+member_casual = 'member'
+AND 
+rideable_type = 'electric_bike'
+GROUP BY
+month,
+year,
+rideable_type
+ORDER BY
+year ASC,
+month ASC;
 
 
 /* 
@@ -1471,70 +1996,169 @@ DESCRIPTION:
 
 
 SELECT
-A.rideable_type,
-A.month,
-A.year,
-COUNT(ride_id) AS number_of_rides_by_bike,
-B.total_rides_by_month
+F.rideable_type,
+F.month,
+F.year,
+C.rideable_type_trend_casual AS casual_use,
+M.rideable_type_trend_member AS member_use,
+COUNT(ride_id) AS total_use
 FROM
-`bike_share_rides.full_year` A
+`bike_share_rides.full_year` AS F
 LEFT JOIN
-`bike_share_rides.total_rides_by_month` AS B
+`bike_share_rides.electric_bike_casual` AS C
 ON
-A.month = B.month
+F.month = C.month
+AND
+F.year = C.year
+LEFT JOIN
+`bike_share_rides.electric_bike_member` AS M
+ON
+C.month = M.month
+AND 
+C.year = M.year
+WHERE 
+F.rideable_type = 'electric_bike'
 GROUP BY
-A.month,
-A.year,
-A.rideable_type,
-B.total_rides_by_month
-ORDER BY
-year ASC,
-month ASC;
+F.rideable_type,
+F.month,
+F.year,
+C.rideable_type_trend_casual,
+M.rideable_type_trend_member 
+ORDER BY 
+F.year ASC,
+F.month ASC
 
 
-rideable_type	month	year	number_of_rides_by_bike	total_rides_by_month
-electric_bike	4	2022	192421	371249
-classic_bike	4	2022	166712	371249
-docked_bike	4	2022	12116	371249
-electric_bike	5	2022	284402	634857
-docked_bike	5	2022	26409	634857
-classic_bike	5	2022	324046	634857
-electric_bike	6	2022	331892	769192
-classic_bike	6	2022	406660	769192
-docked_bike	6	2022	30640	769192
-electric_bike	7	2022	419254	823472
-classic_bike	7	2022	373163	823472
-docked_bike	7	2022	31055	823472
-electric_bike	8	2022	415545	785917
-classic_bike	8	2022	344049	785917
-docked_bike	8	2022	26323	785917
-electric_bike	9	2022	375363	701330
-classic_bike	9	2022	306141	701330
-docked_bike	9	2022	19826	701330
-electric_bike	10	2022	332508	558681
-classic_bike	10	2022	213559	558681
-docked_bike	10	2022	12614	558681
-electric_bike	11	2022	187221	337694
-classic_bike	11	2022	144587	337694
-docked_bike	11	2022	5886	337694
-electric_bike	12	2022	106531	181806
-classic_bike	12	2022	73350	181806
-docked_bike	12	2022	1925	181806
-electric_bike	1	2023	98269	190301
-docked_bike	1	2023	1738	190301
-classic_bike	1	2023	90294	190301
-electric_bike	2	2023	98361	190444
-classic_bike	2	2023	89888	190444
-docked_bike	2	2023	2195	190444
-electric_bike	3	2023	148575	258678
-classic_bike	3	2023	107083	258678
-docked_bike	3	2023	3020	258678
-
+rideable_type	month	year	casual_use	member_use	total_use
+electric_bike	4	2022	66758	125663	192421
+electric_bike	5	2022	127930	156472	284402
+electric_bike	6	2022	168408	163484	331892
+electric_bike	7	2022	218902	200352	419254
+electric_bike	8	2022	203960	211585	415545
+electric_bike	9	2022	171493	203870	375363
+electric_bike	10	2022	134806	197702	332508
+electric_bike	11	2022	61817	125404	187221
+electric_bike	12	2022	30317	76214	106531
+electric_bike	1	2023	24361	73908	98269
+electric_bike	2	2023	25287	73074	98361
+electric_bike	3	2023	39725	108850	148575
 
 
 /* 
 CREATED BY: Jeremy Bosse
-CREATED ON: 7/4/2023
+CREATED ON: 7/3/2023
+DESCRIPTION: 
+*/
+
+
+SELECT
+F.rideable_type,
+F.month,
+F.year,
+C.rideable_type_trend_casual AS casual_use,
+M.rideable_type_trend_member AS member_use,
+COUNT(ride_id) AS total_use
+FROM
+`bike_share_rides.full_year` AS F
+LEFT JOIN
+`bike_share_rides.docked_bike_casual` AS C
+ON
+F.month = C.month
+AND
+F.year = C.year
+LEFT JOIN
+`bike_share_rides.docked_bike_member` AS M
+ON
+C.month = M.month
+AND 
+C.year = M.year
+WHERE 
+F.rideable_type = 'docked_bike'
+GROUP BY
+F.rideable_type,
+F.month,
+F.year,
+C.rideable_type_trend_casual,
+M.rideable_type_trend_member 
+ORDER BY 
+F.year ASC,
+F.month ASC
+
+
+rideable_type	month	year	casual_use	member_use	total_use
+docked_bike	4	2022	12116		12116
+docked_bike	5	2022	26409		26409
+docked_bike	6	2022	30640		30640
+docked_bike	7	2022	31055		31055
+docked_bike	8	2022	26323		26323
+docked_bike	9	2022	19826		19826
+docked_bike	10	2022	12614		12614
+docked_bike	11	2022	5886		5886
+docked_bike	12	2022	1925		1925
+docked_bike	1	2023	1738		1738
+docked_bike	2	2023	2195		2195
+docked_bike	3	2023	3020		3020
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 7/3/2023
+DESCRIPTION: 
+*/
+
+
+SELECT
+F.rideable_type,
+F.month,
+F.year,
+C.rideable_type_trend_casual AS casual_use,
+M.rideable_type_trend_member AS member_use,
+COUNT(ride_id) AS total_use
+FROM
+`bike_share_rides.full_year` AS F
+LEFT JOIN
+`bike_share_rides.classic_bike_casual` AS C
+ON
+F.month = C.month
+AND
+F.year = C.year
+LEFT JOIN
+`bike_share_rides.classic_bike_member` AS M
+ON
+C.month = M.month
+AND 
+C.year = M.year
+WHERE 
+F.rideable_type = 'classic_bike'
+GROUP BY
+F.rideable_type,
+F.month,
+F.year,
+C.rideable_type_trend_casual,
+M.rideable_type_trend_member 
+ORDER BY 
+F.year ASC,
+F.month ASC
+
+
+rideable_type	month	year	casual_use	member_use	total_use
+classic_bike	4	2022	47543	119169	166712
+classic_bike	5	2022	126075	197971	324046
+classic_bike	6	2022	169996	236664	406660
+classic_bike	7	2022	156089	217074	373163
+classic_bike	8	2022	128634	215415	344049
+classic_bike	9	2022	105375	200766	306141
+classic_bike	10	2022	61568	151991	213559
+classic_bike	11	2022	33044	111543	144587
+classic_bike	12	2022	12652	60698	73350
+classic_bike	1	2023	13909	76385	90294
+classic_bike	2	2023	15534	74354	89888
+classic_bike	3	2023	19456	87627	107083
+
+
+/* 
+CREATED BY: Jeremy Bosse
+CREATED ON: 7/3/2023
 DESCRIPTION: 
 */
 
@@ -1567,7 +2191,7 @@ Wells St & Elm St	32224
 
 /* 
 CREATED BY: Jeremy Bosse
-CREATED ON: 7/4/2023
+CREATED ON: 7/3/2023
 DESCRIPTION: 
 */
 
