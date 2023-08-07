@@ -225,22 +225,23 @@ DESCRIPTION:
 */
 
 
-CREATE TABLE bike_share_rides.avg_ride_length_by_member_final_1 AS
 SELECT
+  REPLACE(casual_avg, ':', '.') AS casual,
+  REPLACE(member_avg, ':', '.') AS member,
+  REPLACE(total_avg, ':', '.') AS total
+FROM
+(SELECT
 month,
 year,
-FORMAT('%02d:%02d:%02d',
-CAST(EXTRACT(HOUR FROM casual_avg) AS INT64),
+FORMAT('%02d:%02d',
 CAST(EXTRACT(MINUTE FROM casual_avg) AS INT64),
 CAST(EXTRACT(SECOND FROM casual_avg) AS INT64)
 ) AS casual_avg,
-FORMAT('%02d:%02d:%02d',
-CAST(EXTRACT(HOUR FROM member_avg) AS INT64),
+FORMAT('%02d:%02d',
 CAST(EXTRACT(MINUTE FROM member_avg) AS INT64),
 CAST(EXTRACT(SECOND FROM member_avg) AS INT64)
 ) AS member_avg,
-FORMAT('%02d:%02d:%02d',
-CAST(EXTRACT(HOUR FROM total_avg) AS INT64),
+FORMAT('%02d:%02d',
 CAST(EXTRACT(MINUTE FROM total_avg) AS INT64),
 CAST(EXTRACT(SECOND FROM total_avg) AS INT64)
 ) AS total_avg
@@ -248,7 +249,7 @@ FROM
 `bike_share_rides.avg_ride_length_by_member`
 ORDER BY
 year ASC,
-month ASC;
+month ASC);
 
 
 /* 
@@ -258,27 +259,30 @@ DESCRIPTION:
 */
 
 
-CREATE TABLE bike_share_rides.avg_ride_length_by_member_final_1 AS
+
 SELECT
-month,
-year,
-FORMAT('%02d:%02d:%02d',
-CAST(EXTRACT(HOUR FROM casual_avg) AS INT64),
-CAST(EXTRACT(MINUTE FROM casual_avg) AS INT64),
-CAST(EXTRACT(SECOND FROM casual_avg) AS INT64)
-) AS casual_avg,
-FORMAT('%02d:%02d:%02d',
-CAST(EXTRACT(HOUR FROM member_avg) AS INT64),
-CAST(EXTRACT(MINUTE FROM member_avg) AS INT64),
-CAST(EXTRACT(SECOND FROM member_avg) AS INT64)
-) AS member_avg,
-FORMAT('%02d:%02d:%02d',
-CAST(EXTRACT(HOUR FROM total_avg) AS INT64),
-CAST(EXTRACT(MINUTE FROM total_avg) AS INT64),
-CAST(EXTRACT(SECOND FROM total_avg) AS INT64)
+day_of_week,
+  REPLACE(casual, ':', '.') AS casual,
+  REPLACE(member, ':', '.') AS member,
+  REPLACE(total_avg, ':', '.') AS total
+FROM
+(SELECT
+day_of_week,
+FORMAT('%02d:%02d',
+CAST(EXTRACT(MINUTE FROM casual) AS INT64),
+CAST(EXTRACT(SECOND FROM casual) AS INT64)
+) AS casual,
+FORMAT('%02d:%02d',
+CAST(EXTRACT(MINUTE FROM member) AS INT64),
+CAST(EXTRACT(SECOND FROM member) AS INT64)
+) AS member,
+FORMAT('%02d:%02d',
+CAST(EXTRACT(MINUTE FROM daily_member_casual_avg) AS INT64),
+CAST(EXTRACT(SECOND FROM daily_member_casual_avg) AS INT64)
 ) AS total_avg
 FROM
-`bike_share_rides.avg_ride_length_by_member`
+`bike_share_rides.user_daily_avg`
 ORDER BY
-year ASC,
-month ASC;
+day_of_week ASC)
+ORDER BY
+day_of_week ASC;
