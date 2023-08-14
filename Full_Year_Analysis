@@ -70,7 +70,7 @@ FROM
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/19/2023
-DESCRIPTION: This statement creates a Full Year view of average ride lengths from April 2022 through March 2023 using an aggregate function, a GROUP BY clause, and an ORDER BY clause.
+DESCRIPTION: This statement creates a Full Year table of average ride lengths from April 2022 through March 2023 using an aggregate function, a GROUP BY clause, and an ORDER BY clause.
 */
 
 
@@ -106,7 +106,7 @@ month	year	avg_ride_length
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/19/2023
-DESCRIPTION: This statement creates a Full Year view of average ride lengths by membership type 'casual' from April 2022 through March of 2023 using an agregate function, a GROUP BY clause and an ORDER BY clause.
+DESCRIPTION: This statement creates a Full Year table of average ride lengths by membership type 'casual' from April 2022 through March of 2023 using an agregate function, a GROUP BY clause and an ORDER BY clause.
 */
 
 
@@ -146,7 +146,7 @@ casual	3	2023	0-0 0 0:16:1.089001784
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/19/2023
-DESCRIPTION: This statement creates a Full Year view of average ride lengths by membership type 'member' from April 2022 through March of 2023 using an agregate function, a GROUP BY clause and an ORDER BY clause.
+DESCRIPTION: This statement creates a Full Year table of average ride lengths by membership type 'member' from April 2022 through March of 2023 using an agregate function, a GROUP BY clause and an ORDER BY clause.
 */
 
 
@@ -186,7 +186,7 @@ member	3	2023	0-0 0 0:10:12.021651389
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/24/2023
-DESCRIPTION: This statement creates a table with average ride lengths per month within the full year of data, using a CREATE TABLE statement, an aggregate function, and a GROUP BY clause.
+DESCRIPTION: This statement creates a table with average monthly ride lengths within the full year of data using a CREATE TABLE statement, an aggregate function, and a GROUP BY clause.
 */
 
 
@@ -204,7 +204,7 @@ month;
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/24/2023
-DESCRIPTION: This statement creates a table of average ride lengths per month by membership type, using an aggregate function, a LEFT JOIN clause, a GROUP BY statement, and an ORDER BY key word.
+DESCRIPTION: This statement creates a table of average monthly ride lengths by membership type using an aggregate function, a LEFT JOIN clause, a GROUP BY statement, and an ORDER BY keyword.
 */
 
 
@@ -251,7 +251,7 @@ month	year	casual_avg	member_avg	total_avg
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/24/2023
-DESCRIPTION: This statement creates a table with average ride lengths per day within the full year of data, using a CREATE TABLE statement, an aggregate function, and a GROUP BY clause.
+DESCRIPTION: This statement creates a table with average ride lengths per day based on the full year of data using a CREATE TABLE statement, an aggregate function, and a GROUP BY clause.
 */
 
 
@@ -271,7 +271,7 @@ day_of_week;
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/24/2023
-DESCRIPTION: This statement creates a table with average ride lengths per day within the full year of data, using a CREATE TABLE statement, an aggregate function, and a GROUP BY clause.
+DESCRIPTION: This statement creates a table with average ride lengths per day based on the full year of data using a CREATE TABLE statement, an aggregate function, and a GROUP BY clause.
 */
 
 
@@ -291,7 +291,7 @@ day_of_week;
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/24/2023
-DESCRIPTION: This statement creates a table of average ride lengths by day, by month, and by membership type, using an aggregate function, a LEFT JOIN clause, a GROUP BY statement, and an ORDER BY key word.
+DESCRIPTION: This statement creates a table of average ride lengths in the order of the day by membership type, using an aggregate function, a LEFT JOIN clause, a GROUP BY statement, and an ORDER BY keyword.
 */
 
 
@@ -330,7 +330,7 @@ day_of_week	casual	member	daily_member_casual_avg
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/24/2023
-DESCRIPTION: This statement creates a table with average ride lengths per day within the full year of data, using a CREATE TABLE statement, an aggregate function, and a GROUP BY clause.
+DESCRIPTION: This statement creates a table with average ride lengths in order of day, month, and year based on the full year of data using a CREATE TABLE statement, an aggregate function, and a GROUP BY clause.
 */
 
 
@@ -441,7 +441,7 @@ day_of_week	month	year	total_avg
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/24/2023
-DESCRIPTION: This statement creates a table with average ride lengths per day within the full year of data, using a CREATE TABLE statement, an aggregate function, and a GROUP BY clause.
+DESCRIPTION: This statement creates a table with average daily ride lengths for members based on the full year of data using a CREATE TABLE statement, an aggregate function, and a GROUP BY clause.
 */
 
 
@@ -463,7 +463,7 @@ year;
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/24/2023
-DESCRIPTION: This statement creates a table with average ride lengths per day within the full year of data, using a CREATE TABLE statement, an aggregate function, and a GROUP BY clause.
+DESCRIPTION: This statement creates a table with average daily ride lengths for casual riders based on the full year of data using a CREATE TABLE statement, an aggregate function, and a GROUP BY clause.
 */
 
 
@@ -486,7 +486,7 @@ year;
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/24/2023
-DESCRIPTION: This statement creates a table of average ride lengths by day, by month, and by membership type, using an aggregate function, a LEFT JOIN clause, a GROUP BY statement, and an ORDER BY key word.
+DESCRIPTION: This statement creates a table of each member type's daily average ride lengths in order of day, month, and year using an aggregate function, a LEFT JOIN clause, a GROUP BY statement, and an ORDER BY keyword.
 */
 
 
@@ -623,7 +623,7 @@ day_of_week	month	year	casual	member	total_avg
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/25/2023
-DESCRIPTION: 
+DESCRIPTION: This statement creates a table showing the total ride count for each membership type using subqueries in the SELECT statement using an aggregate function.
 */
 
 SELECT
@@ -652,7 +652,7 @@ casual_rides_total	member_rides_total	total_rides
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/25/2023
-DESCRIPTION: 
+DESCRIPTION: This statement creates a table showing each membership type's total distinct ride count using subqueries in the SELECT statement using an aggregate function.
 */
 
 SELECT
@@ -681,7 +681,7 @@ casual_rides_total	member_rides_total	total_rides
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/25/2023
-DESCRIPTION: 
+DESCRIPTION: This statement creates a table showing casual riders' total monthly ride count using an aggregate function and a GROUP BY clause.
 */
 
 
@@ -702,7 +702,7 @@ month;
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/25/2023
-DESCRIPTION: 
+DESCRIPTION: This statement creates a table showing member riders' total monthly ride count using an aggregate function and a GROUP BY clause.
 */
 
 
@@ -722,7 +722,7 @@ month;
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/25/2023
-DESCRIPTION: 
+DESCRIPTION: This statement creates a table showing member and casual riders' total monthly ride count in order of month and year using a LEFT JOIN keyword, an aggregate function, a GROUP BY clause, and an ORDER BY keyword.
 */
 
 
@@ -769,7 +769,7 @@ month	year	monthly_casual_rides	monthly_member_rides	monthly_total_rides
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/25/2023
-DESCRIPTION: 
+DESCRIPTION: This statement creates a table showing casual riders' total daily ride count in order of the day, using an aggregate function, a GROUP BY clause, and an ORDER BY keyword.
 */
 
 
@@ -791,7 +791,7 @@ day_of_week ASC;
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/25/2023
-DESCRIPTION: 
+DESCRIPTION: This statement creates a table showing member riders' total daily ride count in order of the day, using an aggregate function, a GROUP BY clause, and an ORDER BY keyword.
 */
 
 
@@ -813,7 +813,7 @@ day_of_week ASC;
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/25/2023
-DESCRIPTION: 
+DESCRIPTION: This statement creates a table showing casual and member riders' total daily ride count in order of the day, using an aggregate function, a GROUP BY clause, and an ORDER BY keyword.
 */
 
 
@@ -853,7 +853,7 @@ day_of_week	casual_total	member_total	total_daily_count
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/25/2023
-DESCRIPTION: 
+DESCRIPTION: This statement creates a table showing casual riders' total daily ride count in order of the day, month, and year using an aggregate function, a GROUP BY clause, and an ORDER BY keyword.
 */
 
 
@@ -880,7 +880,7 @@ day_of_week ASC;
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/25/2023
-DESCRIPTION: 
+DESCRIPTION: This statement creates a table showing member riders' total daily ride count in order of the day, month, and year using an aggregate function, a GROUP BY clause, and an ORDER BY keyword.
 */
 
 
@@ -906,7 +906,7 @@ day_of_week ASC;
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/25/2023
-DESCRIPTION: 
+DESCRIPTION: This statement creates a table showing casual and member riders' total daily ride count in order of the day, month, and year using a LEFT JOIN clause, an aggregate function, a GROUP BY clause, and an ORDER BY keyword.
 */
 
 
@@ -1037,7 +1037,7 @@ day_of_week	month	year	daily_casual_ride_count	daily_member_ride_count	daily_tot
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/25/2023
-DESCRIPTION: 
+DESCRIPTION: Using a MAX function, this statement creates a table showing casual and member riders' MAX ride length.
 */
 
 
@@ -1062,7 +1062,7 @@ casual_max	member_max
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/25/2023
-DESCRIPTION: 
+DESCRIPTION: This statement creates a table showing casual and member riders' MAX ride length in the order of month and year using a MAX function, a LEFT JOIN clause, a GROUP BY clause, and an ORDER BY keyword.
 */
 
 
@@ -1111,7 +1111,7 @@ month	year	casual_max	member_max	monthly_max
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/26/2023
-DESCRIPTION: 
+DESCRIPTION: This statement creates a table showing casual and member riders' MAX ride length in the order of month and year using a MAX function, a LEFT JOIN clause, a GROUP BY clause, and an ORDER BY keyword.
 */
 
 
@@ -1145,7 +1145,7 @@ month ASC
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/26/2023
-DESCRIPTION: 
+DESCRIPTION: This statement produces a count of casual riders' max ride lengths greater than member riders' max ride lengths based on both member types' max ride length results for 12 months. 
 */
 
 
@@ -1164,7 +1164,7 @@ longer_rides
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/26/2023
-DESCRIPTION: 
+DESCRIPTION: This statement produces a count of member riders' max ride lengths greater than casual riders' max ride lengths based on both member types' max ride length results for 12 months. 
 */
 
 
@@ -1183,7 +1183,7 @@ longer_rides
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/26/2023
-DESCRIPTION: 
+DESCRIPTION: This statement produces a sum of casual riders' ride length and a sum of member riders' ride length using a subquery in the SELECT statement using a SUM function and a WHERE clause.
 */
 
 
@@ -1209,7 +1209,7 @@ casual_ride_length_total	member_ride_length_total
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/26/2023
-DESCRIPTION: 
+DESCRIPTION: This statement produces a sum of casual riders' monthly ride length using a SUM function, a WHERE clause, and a GROUP BY keyword.
 */
 
 
@@ -1228,7 +1228,7 @@ month
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/26/2023
-DESCRIPTION: 
+DESCRIPTION: This statement produces a sum of member riders' monthly ride length using a SUM function, a WHERE clause, and a GROUP BY keyword.
 */
 
 
@@ -1247,7 +1247,7 @@ month
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/26/2023
-DESCRIPTION: 
+DESCRIPTION: This statement produces a sum of casual riders' ride length in the order of the month and a sum of member riders' ride length in the order of the month using a LEFT JOIN keyword, a SUM function, a GROUP BY clause, and an ORDER BY keyword.
 */
 
 
@@ -1295,7 +1295,7 @@ month	year	casual_rider_ride_length	member_rider_ride_length	total_ride_length
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/28/2023
-DESCRIPTION: 
+DESCRIPTION: This statement produces a sum of casual riders' daily ride length in the order of the day using a SUM function, a WHERE clause, a GROUP BY statement, and an ORDER BY keyword.
 */
 
 
@@ -1315,7 +1315,7 @@ day_of_week ASC;
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/28/2023
-DESCRIPTION: 
+DESCRIPTION: This statement produces a sum of member riders' daily ride length in the order of the day using a SUM function, a WHERE clause, a GROUP BY statement, and an ORDER BY keyword.
 */
 
 
@@ -1336,7 +1336,7 @@ day_of_week ASC;
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/28/2023
-DESCRIPTION: 
+DESCRIPTION: This statement produces a sum of casual riders' ride length in the order of the day and a sum of member riders' ride length in the order of the day using a LEFT JOIN keyword, a SUM function, a GROUP BY clause, and an ORDER BY keyword.
 */
 
 
@@ -1376,7 +1376,7 @@ day_of_week	casual	member	total
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/28/2023
-DESCRIPTION: 
+DESCRIPTION: This statement produces a sum of casual riders' daily ride length in the order of the day, month, and year using a SUM function, a WHERE clause, a GROUP BY statement, and an ORDER BY keyword.
 */
 
 CREATE TABLE bike_share_rides.casual_rider_ride_length_by_day AS
@@ -1398,7 +1398,7 @@ day_of_week
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/28/2023
-DESCRIPTION: 
+DESCRIPTION: This statement produces a sum of member riders' daily ride length in the order of the day, month, and year using a SUM function, a WHERE clause, a GROUP BY statement, and an ORDER BY keyword.
 */
 
 
@@ -1421,7 +1421,7 @@ day_of_week
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/28/2023
-DESCRIPTION: 
+DESCRIPTION: This statement produces a sum of casual riders' ride lengths in the day, month, and year order. And a sum of member riders' ride length in the day, month, and year order using a LEFT JOIN keyword, a SUM function, a GROUP BY clause, and an ORDER BY keyword.
 */
 
 
