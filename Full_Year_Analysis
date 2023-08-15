@@ -1552,7 +1552,7 @@ day_of_week	month	year	casual	member	total
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/28/2023
-DESCRIPTION: 
+DESCRIPTION: Using a COUNT function, this statement creates a table showing a count of distinct casual rides, a count of distinct member rides, and a count of distinct total rides based on the 12 months of data.  
 */
 
 
@@ -1582,7 +1582,7 @@ casual_rides_total	member_rides_total	total_rides
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/28/2023
-DESCRIPTION: 
+DESCRIPTION: Using a COUNT function, this statement creates a table showing a count of distinct total rides.
 */
 
 
@@ -1599,7 +1599,7 @@ distinct_rides
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/28/2023
-DESCRIPTION: 
+DESCRIPTION: Using an EXTRACT function, a COUNT function, a WHERE clause, a GROUP BY clause, and an ORDER BY keyword, this statement creates a table showing a count of casual rides in order of the hour of the day.
 */
 
 CREATE TABLE bike_share_rides.hourly_rider_traffic_casual AS
@@ -1619,7 +1619,7 @@ hour_of_day
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/28/2023
-DESCRIPTION: 
+DESCRIPTION: Using an EXTRACT function, a COUNT function, a WHERE clause, a GROUP BY clause, and an ORDER BY keyword, this statement creates a table showing a count of member rides in order of the hour of the day.
 */
 
 
@@ -1640,7 +1640,7 @@ hour_of_day
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/28/2023
-DESCRIPTION: 
+DESCRIPTION: Using an EXTRACT function, a COUNT function, a WHERE clause, a GROUP BY clause, and an ORDER BY keyword, this statement creates a table showing a count of total rides in order of the hour of the day.
 */
 
 
@@ -1659,7 +1659,7 @@ hour_of_day
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/28/2023
-DESCRIPTION: 
+DESCRIPTION: Using a LEFT JOIN keyword, a GROUP BY clause, and an ORDER BY keyword, this statement creates a table showing a count of casual rides, member rides, and total rides in order of the hour of the day.
 */
 
 
@@ -1717,7 +1717,7 @@ hour_of_day	casual_rider_traffic	member_rider_traffic	total_hourly_rider_traffic
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/28/2023
-DESCRIPTION: 
+DESCRIPTION: This statement uses a SUM aggregate function to create a count of casual, a count of members, and a count of total rides in the morning. The morning condition is set using a WHERE clause and a BETWEEN operator that specifies the time of day. The sum functions are based on the subquery in the FROM statement featuring a LEFT JOIN Keyword, a GROUP BY clause, a WHERE clause, and an ORDER BY keyword that creates a table of ride counts by the hour. 
 */
 
 SELECT
@@ -1756,7 +1756,7 @@ morning_casual_traffic	morning_member_traffic	morning_total_traffic
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/28/2023
-DESCRIPTION: 
+DESCRIPTION: This statement uses a SUM aggregate function to create a count of casual, a count of members, and a count of total rides in the afternoon. The afternoon condition is set using a WHERE clause and a BETWEEN operator that specifies the time of day. The sum functions are based on the subquery in the FROM statement featuring a LEFT JOIN Keyword, a GROUP BY clause, a WHERE clause, and an ORDER BY keyword that creates a table of ride counts by the hour. 
 */
 
 
@@ -1813,7 +1813,7 @@ FROM
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 7/3/2023
-DESCRIPTION: 
+DESCRIPTION: Using a SUM function wrapped around a CASE function, this statement produces a table of a count of casual rides in the morning, a count of casual rides in the afternoon, a count of member rides in the morning, and a count of member rides in the afternoon. In addition, this statement features a COUNT function which produces a count of total rides. 
 */
 
 
@@ -1834,7 +1834,7 @@ casual_morning_rides	casual_afternoon_rides	member_morning_rides	member_afternoo
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 7/3/2023
-DESCRIPTION: 
+DESCRIPTION: Using a COUNT function and a GROUP BY clause, this statement creates a table with a count of rides by rideable type.
 */
 
 
@@ -1856,7 +1856,7 @@ docked_bike	173747
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 7/3/2023
-DESCRIPTION: 
+DESCRIPTION: Using a COUNT function, a WHERE clause, and a GROUP BY clause, this statement creates a table with a count of casual rides by rideable type.
 */
 
 
@@ -1875,7 +1875,7 @@ rideable_type;
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 7/3/2023
-DESCRIPTION: 
+DESCRIPTION: Using a COUNT function, a WHERE clause, and a GROUP BY clause, this statement creates a table with a count of casual rides by rideable type.
 */
 
 
@@ -1901,7 +1901,7 @@ rideable_type;
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 7/3/2023
-DESCRIPTION: 
+DESCRIPTION: Using a COUNT function, a LEFT JOIN keyword, and a GROUP BY clause, this statement creates a table with a count of casual rides by rideable type, member rides by rideable type, and total rides by rideable type.
 */
 
 
@@ -1935,7 +1935,7 @@ docked_bike	173747		173747
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 7/3/2023
-DESCRIPTION: 
+DESCRIPTION: Using a COUNT function, a WHERE clause, a GROUP BY clause, and an ORDER BY keyword, this statement creates a table with a count of casual riders using the electric bike in order of the month and year. This statement was repeated for the docked bike rideable type and the classic bike rideable type.
 */
 
 
@@ -1963,7 +1963,7 @@ month ASC;
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 7/3/2023
-DESCRIPTION: 
+DESCRIPTION: Using a COUNT function, a WHERE clause, a GROUP BY clause, and an ORDER BY keyword, this statement creates a table with a count of member riders using the electric bike in order of the month and year. This statement was repeated for the docked bike rideable type and the classic bike rideable type.
 */
 
 
@@ -1991,7 +1991,7 @@ month ASC;
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 7/3/2023
-DESCRIPTION: 
+DESCRIPTION: Using a COUNT function, a LEFT JOIN keyword, a WHERE clause, a GROUP BY clause, and an ORDER BY keyword, this table results in a count of casual riders, a count of member riders, and total riders who used an electric bike in order of the month and year.
 */
 
 
@@ -2047,7 +2047,7 @@ electric_bike	3	2023	39725	108850	148575
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 7/3/2023
-DESCRIPTION: 
+DESCRIPTION: Using a COUNT function, a LEFT JOIN keyword, a WHERE clause, a GROUP BY clause, and an ORDER BY keyword, this table results in a count of casual riders, a count of member riders, and total riders who used an docked bike in order of the month and year.
 */
 
 
@@ -2103,7 +2103,7 @@ docked_bike	3	2023	3020		3020
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 7/3/2023
-DESCRIPTION: 
+DESCRIPTION: Using a COUNT function, a LEFT JOIN keyword, a WHERE clause, a GROUP BY clause, and an ORDER BY keyword, this table results in a count of casual riders, a count of member riders, and total riders who used a classic bike in order of the month and year.
 */
 
 
@@ -2159,7 +2159,7 @@ classic_bike	3	2023	19456	87627	107083
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 7/3/2023
-DESCRIPTION: 
+DESCRIPTION: Using a DISTINCT keyword, a COUNT function, a WHERE clause, an IS NOT NULL operator, a GROUP BY clause, and an ORDER BY keyword, this statement results in a count of total rides by start station.
 */
 
 
@@ -2192,7 +2192,7 @@ Wells St & Elm St	32224
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 7/3/2023
-DESCRIPTION: 
+DESCRIPTION: Using a SUM function wrapped around a CASE statement, a COUNT function, a WHERE clause, an IS NOT NULL operator, a GROUP BY clause, and an ORDER BY keyword, this statement results in a count of member rides by start station, a count of casual rides by start station and a count of total rides by start station.
 */
 
 
