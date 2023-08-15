@@ -1640,7 +1640,7 @@ hour_of_day
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/28/2023
-DESCRIPTION: Using an EXTRACT function, a COUNT function, a WHERE clause, a GROUP BY clause, and an ORDER BY keyword, this statement creates a table showing a count of total rides in order of the hour of the day.
+DESCRIPTION: Using an EXTRACT function, a COUNT function, a GROUP BY clause, and an ORDER BY keyword, this statement creates a table showing a count of total rides in order of the hour of the day.
 */
 
 
