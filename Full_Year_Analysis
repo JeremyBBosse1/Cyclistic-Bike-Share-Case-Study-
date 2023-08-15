@@ -1659,7 +1659,7 @@ hour_of_day
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 6/28/2023
-DESCRIPTION: Using a LEFT JOIN keyword, a GROUP BY clause, and an ORDER BY keyword, this statement creates a table showing a count of casual rides, member rides, and total rides in order of the hour of the day.
+DESCRIPTION: Using a LEFT JOIN keyword, a GROUP BY clause, and an ORDER BY keyword, this statement creates a table showing a count of casual rides per hour, a count of member rides per hour, and a count of total rides per hour in order of the hour of the day.
 */
 
 
@@ -1813,7 +1813,7 @@ FROM
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 7/3/2023
-DESCRIPTION: Using a SUM function wrapped around a CASE function, this statement produces a table of a count of casual rides in the morning, a count of casual rides in the afternoon, a count of member rides in the morning, and a count of member rides in the afternoon. In addition, this statement features a COUNT function which produces a count of total rides. 
+DESCRIPTION: Using a SUM function wrapped around a CASE statement, this query produces a table of a count of casual rides in the morning, a count of casual rides in the afternoon, a count of member rides in the morning, and a count of member rides in the afternoon. In addition, this statement features a COUNT function which produces a count of total rides. 
 */
 
 
@@ -1875,14 +1875,7 @@ rideable_type;
 /* 
 CREATED BY: Jeremy Bosse
 CREATED ON: 7/3/2023
-DESCRIPTION: Using a COUNT function, a WHERE clause, and a GROUP BY clause, this statement creates a table with a count of casual rides by rideable type.
-*/
-
-
-/* 
-CREATED BY: Jeremy Bosse
-CREATED ON: 7/3/2023
-DESCRIPTION: 
+DESCRIPTION: Using a COUNT function, a WHERE clause, and a GROUP BY clause, this statement creates a table with a count of member rides by rideable type.
 */
 
 
